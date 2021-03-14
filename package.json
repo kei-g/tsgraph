@@ -24,7 +24,8 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
-    "example": "ts-node example.ts"
+    "example": "ts-node example.ts",
+    "start": "ts-node random.ts"
   },
   "version": "1.0.0"
 }
