@@ -1,0 +1,16 @@
+language: node_js
+cache: npm
+node_js:
+  - 14
+dist: focal
+addons:
+  apt:
+    packages:
+      - nodejs
+      - npm
+install:
+  - npm install @types/node
+  - npm install ts-node
+  - npm install typescript
+script:
+  - npm run example
