@@ -95,6 +95,10 @@ export class Point implements PointLike {
 	constructor(readonly x: number, readonly y: number) {
 	}
 
+	get JSON(): string {
+		return `{"x":${this.x},"y":${this.y}}`
+	}
+
 	compareTo(point: PointLike): ComparisonResult {
 		return new ComparisonResult(this, point)
 	}

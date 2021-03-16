@@ -8,6 +8,8 @@ export abstract class Node<T> implements NodeParameter<T> {
 		this.graph = param?.graph
 		this.id = param.id
 	}
+
+	abstract get JSON(): string
 }
 
 export class Graph<T, L extends Link<T>, N extends Node<T>> extends Node<T> {
@@ -23,22 +25,24 @@ export class Graph<T, L extends Link<T>, N extends Node<T>> extends Node<T> {
 		this.nodeConstructor = param.nodeConstructor
 	}
 
-	addLink<LP extends LinkParameter<T>>(param: LP): boolean {
-		const canAdd: boolean = this.canAdd(param)
+	addLink<LP extends LinkParameter<T>>(param: LP | string): boolean {
+		const linkParameter = (param instanceof String ? JSON.parse(param as string) : param) as LP
+		const canAdd: boolean = this.canAdd(linkParameter)
 		if (canAdd) {
-			const link = new this.linkConstructor(param)
-			this.links.set(param.id, link)
+			const link = new this.linkConstructor(linkParameter)
+			this.links.set(link.id, link)
 			this.groupByFromNodeId(link)
 		}
 		return canAdd
 	}
 
-	addNode<NP extends NodeParameter<T>>(param: NP): void {
-		if (this.nodes.has(param.id))
-			throw new Error(`Duplicate node by ${param.id}`)
-		param.graph = this
-		const node = new this.nodeConstructor(param)
-		this.nodes.set(param.id, node)
+	addNode<NP extends NodeParameter<T>>(param: NP | string): void {
+		const nodeParameter = (param instanceof String ? JSON.parse(param as string) : param) as NP
+		if (this.nodes.has(nodeParameter.id))
+			throw new Error(`Duplicate node by ${nodeParameter.id}`)
+		nodeParameter.graph = this
+		const node = new this.nodeConstructor(nodeParameter)
+		this.nodes.set(nodeParameter.id, node)
 	}
 
 	canAdd<LP extends LinkParameter<T>>(param: LP): boolean {
@@ -81,6 +85,29 @@ export class Graph<T, L extends Link<T>, N extends Node<T>> extends Node<T> {
 		}
 		return generator(this)
 	}
+
+	get JSON(): string {
+		const nodes: string[] = []
+		for (const node of this.nodes.values())
+			nodes.push(node.JSON)
+		const links: string[] = []
+		for (const link of this.links.values())
+			links.push(link.JSON)
+		return `{"graph":{"nodes":[${nodes.join(",")}],"links":[${links.join(",")}]}}`
+	}
+
+	set JSON(json: string) {
+		this.linkIdsGroupedByFromNodeId.clear()
+		this.links.clear()
+		this.nodes.clear()
+		const graph = JSON.parse(json)["graph"]
+		const links = graph["links"] as LinkParameter<T>[]
+		const nodes = graph["nodes"] as NodeParameter<T>[]
+		for (const param of nodes)
+			this.addNode(param)
+		for (const param of links)
+			this.addLink(param)
+	}
 }
 
 export type GraphParameter<T, N extends Node<T>, L extends Link<T>> = {
@@ -98,6 +125,10 @@ export abstract class Link<T> implements LinkParameter<T> {
 		this.id = param.id
 		this.from = param.from
 		this.to = param.to
+	}
+
+	get JSON(): string {
+		return `{"id":${this.id},"from":${this.from},"to":${this.to}}`
 	}
 }
 

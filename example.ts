@@ -27,6 +27,10 @@ class MyNode extends Node<number> {
 		this.name = param.name
 	}
 
+	get JSON(): string {
+		return `{"id":${this.id},"name":"${this.name}","coordinate":${this.coordinate.JSON}}`
+	}
+
 	distanceTo(node: MyNode): number {
 		return distanceWGS84(this.coordinate.Radian, node.coordinate.Radian)
 	}
@@ -43,7 +47,7 @@ class MyNode extends Node<number> {
 }
 
 const graph = new Graph({
-	linkConstructor: MyLink, 
+	linkConstructor: MyLink,
 	nodeConstructor: MyNode,
 })
 

@@ -25,7 +25,9 @@
   },
   "scripts": {
     "example": "ts-node example.ts",
-    "start": "ts-node random.ts"
+    "generate": "ts-node generate.ts",
+    "solve": "ts-node solve.ts",
+    "start": "ts-node generate.ts && ts-node solve.ts"
   },
   "version": "1.0.0"
 }
