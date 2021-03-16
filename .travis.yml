@@ -10,6 +10,7 @@ addons:
       - npm
 install:
   - npm install @types/node
+  - npm install canvas
   - npm install ts-node
   - npm install typescript
 script:
