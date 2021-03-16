@@ -1,3 +1,4 @@
+import { Canvas } from 'canvas'
 import * as fs from 'fs'
 import { Worker } from 'worker_threads'
 
@@ -117,6 +118,54 @@ class MyNode {
 	}
 }
 
+function drawLinks(context: CanvasRenderingContext2D, graph: MyGraphLike, size: number): void {
+	const hist = new Set<number[]>()
+	stdout.log('drawing links...\n')
+	for (let i = 0; i < graph.links.length; i++) {
+		const link = graph.links[i]
+		const [from, to] = [link.from, link.to]
+		const p = [Math.min(from, to), Math.max(from, to)]
+		if (!hist.has(p)) {
+			hist.add(p)
+			stdout.log(`\r${i}/${graph.links.length}`)
+			const [f, t] = [graph.nodes[from].position, graph.nodes[to].position]
+			context.beginPath()
+			context.strokeStyle = 'rgba(96, 96, 96, 255)'
+			context.lineWidth = 1
+			context.moveTo((f.x / 4294967295) * size, (f.y / 4294967295) * size)
+			context.lineTo((t.x / 4294967295) * size, (t.y / 4294967295) * size)
+			context.stroke()
+		}
+	}
+	stdout.log('\r')
+}
+
+function drawNodes(context: CanvasRenderingContext2D, nodes: Euclidean.Point[], size: number): void {
+	stdout.log('drawing nodes...\n')
+	for (let i = 0; i < nodes.length; i++) {
+		stdout.log(`\r${i}/${nodes.length}`)
+		const p = nodes[i]
+		context.beginPath()
+		context.fillStyle = `rgba(255, 255, 255, 255)`
+		context.arc((p.x / 4294967295) * size, (p.y / 4294967295) * size, 2, 0, Math.PI * 2)
+		context.fill()
+	}
+	stdout.log('\r')
+}
+
+function drawGraph(filePath: string, graph: MyGraphLike, nodes: Euclidean.Point[], size: number, type: 'png' | 'svg'): void {
+	const canvas = new Canvas(size, size, type == 'png' ? 'image' : type)
+	const context = canvas.getContext('2d')
+	context.fillStyle = 'rgba(0, 0, 0, 255)'
+	context.fillRect(0, 0, canvas.width, canvas.height)
+	drawLinks(context, graph, size)
+	drawNodes(context, nodes, size)
+	stdout.log(`compressing to ${type}...\n`)
+	const buffer = canvas.toBuffer()
+	stdout.log('done\n')
+	fs.writeFileSync(filePath, buffer)
+}
+
 function generateNodes(graph: MyGraphLike, numberOfNodes: number, random: Standard.Random.Device): Euclidean.Point[] {
 	stdout.log("generating nodes...\n")
 	const positions: Euclidean.Point[] = []
@@ -146,6 +195,8 @@ function spawnWorkerThreads(numberOfThreads: number, positions: Euclidean.Point[
 	return workers
 }
 
+let imagePath = 'tsgraph.png'
+let imageSize = 8192
 let jsonPath = 'tsgraph.json'
 let numNodes = 65536
 let numThreads = 16
@@ -154,6 +205,11 @@ for (let i = 0; i < argv.length; i++)
 	if (argv[i].split('/').reverse()[0].startsWith('generate.ts')) {
 		for (let j = i + 1; j < argv.length; j++) {
 			switch (argv[j]) {
+				case '-i':
+				case '--image':
+				case '--image-path':
+					imagePath = argv[++j]
+					break
 				case '-j':
 				case '--json':
 				case '--json-path':
@@ -163,6 +219,11 @@ for (let i = 0; i < argv.length; i++)
 				case '--nodes':
 				case '--number-of-nodes':
 					numNodes = +argv[++j]
+					break
+				case '-s':
+				case '--image-size':
+				case '--size':
+					imageSize = +argv[++j]
 					break
 				case '-t':
 				case '--threads':
@@ -182,5 +243,6 @@ const workers = spawnWorkerThreads(numThreads, nodes)
 const linkGenerator = new LinkGenerator(graph, numNodes, workers)
 linkGenerator.generate().then(() => {
 	fs.writeFileSync(jsonPath, graph.JSON)
+	drawGraph(imagePath, graph, nodes, imageSize, 'png')
 	process.exit(0)
 })
