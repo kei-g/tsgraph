@@ -8,6 +8,10 @@ export class Degree {
 			unit: Radian,
 		})
 	}
+
+	get JSON(): string {
+		return `"Degree"`
+	}
 }
 
 export class Radian {
@@ -17,5 +21,9 @@ export class Radian {
 			longitude: coordinate.longitude * 180 / Math.PI,
 			unit: Degree,
 		})
+	}
+
+	get JSON(): string {
+		return `"Radian"`
 	}
 }

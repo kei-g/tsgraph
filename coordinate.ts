@@ -16,6 +16,10 @@ export class Coordinate<T extends Degree | Radian> implements CoordinateParamete
 		return this.unit === Radian ? new this.unit().convert(this) : this
 	}
 
+	get JSON(): string {
+		return `{"longitude":${this.longitude},"latitude":${this.latitude},"unit":${new this.unit().JSON}}`
+	}
+
 	get Radian(): Coordinate<Radian> {
 		return this.unit === Degree ? new this.unit().convert(this) : this
 	}
