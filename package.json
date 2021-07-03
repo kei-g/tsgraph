@@ -17,7 +17,7 @@
     "Graph",
     "TypeScript"
   ],
-  "license": "BSD-3-Clause License",
+  "license": "BSD-3-Clause",
   "name": "tsgraph",
   "private": true,
   "repository": {
