@@ -4,12 +4,14 @@
     "name": "kei-g"
   },
   "dependencies": {
-    "@types/node": "^16.0.0",
     "canvas": "^2.8.0",
     "ts-node": "^10.0.0",
     "typescript": "^4.3.5"
   },
   "description": "A star search algorithm implementation in TypeScript",
+  "devDependencies": {
+    "@types/node": "^16.0.0"
+  },
   "displayName": "tsgraph",
   "keywords": [
     "A*",
