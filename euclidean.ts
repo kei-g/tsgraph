@@ -1,4 +1,4 @@
-import { Comparator } from './common'
+import { Comparator } from '@kei-g/priority-queue'
 import { Random } from './standard'
 
 export type AnticlockwiseIndex = 0 | 1 | 2 | 3
