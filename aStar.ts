@@ -1,4 +1,4 @@
-import { Comparator, PriorityQueue } from './common'
+import { Comparator, PriorityQueue } from '@kei-g/priority-queue'
 import { Graph, Link, Node } from './graph'
 
 export function findShortestPath<T, L extends Link<T>, N extends Node<T>>(param: PathParameter<T, L, N>): aStarResult<T, N> {
