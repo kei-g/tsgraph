@@ -11,7 +11,10 @@
   },
   "description": "A star search algorithm implementation in TypeScript",
   "devDependencies": {
-    "@types/node": "^16.0.1"
+    "@types/node": "^16.0.1",
+    "@typescript-eslint/eslint-plugin": "^4.28.2",
+    "@typescript-eslint/parser": "^4.28.2",
+    "eslint": "^7.30.0"
   },
   "displayName": "tsgraph",
   "keywords": [
@@ -30,6 +33,7 @@
   "scripts": {
     "example": "ts-node example.ts",
     "generate": "ts-node generate.ts",
+    "lint": "eslint *.ts",
     "solve": "ts-node solve.ts",
     "start": "ts-node generate.ts && ts-node solve.ts"
   },
