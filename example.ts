@@ -4,51 +4,51 @@ import { Degree } from './coordinateUnit'
 import { Graph, Link, LinkParameter, Node } from './graph'
 
 class MyLink extends Link<number> {
-	constructor(param: LinkParameter<number>) {
-		super(param)
-	}
+  constructor(param: LinkParameter<number>) {
+    super(param)
+  }
 }
 
 type MyNodeParameter = {
-	coordinate: Coordinate<Degree>
-	id: number
-	name: string
+  coordinate: Coordinate<Degree>
+  id: number
+  name: string
 }
 
 class MyNode extends Node<number> {
-	static readonly distance = (from: MyNode, to: MyNode) => from.distanceTo(to)
+  static readonly distance = (from: MyNode, to: MyNode) => from.distanceTo(to)
 
-	readonly coordinate: Coordinate<Degree>
-	readonly name: string
+  readonly coordinate: Coordinate<Degree>
+  readonly name: string
 
-	constructor(param: MyNodeParameter) {
-		super(param)
-		this.coordinate = new Coordinate<Degree>(param.coordinate)
-		this.name = param.name
-	}
+  constructor(param: MyNodeParameter) {
+    super(param)
+    this.coordinate = new Coordinate<Degree>(param.coordinate)
+    this.name = param.name
+  }
 
-	get JSON(): string {
-		return `{"id":${this.id},"name":"${this.name}","coordinate":${this.coordinate.JSON}}`
-	}
+  get JSON(): string {
+    return `{"id":${this.id},"name":"${this.name}","coordinate":${this.coordinate.JSON}}`
+  }
 
-	distanceTo(node: MyNode): number {
-		return distanceWGS84(this.coordinate.Radian, node.coordinate.Radian)
-	}
+  distanceTo(node: MyNode): number {
+    return distanceWGS84(this.coordinate.Radian, node.coordinate.Radian)
+  }
 
-	printLinkTo(node: MyNode): number {
-		const distance = this.distanceTo(node)
-		console.log(`\t↓\t${Math.round(distance * 1000) / 1000}\n`)
-		return distance
-	}
+  printLinkTo(node: MyNode): number {
+    const distance = this.distanceTo(node)
+    console.log(`\t↓\t${Math.round(distance * 1000) / 1000}\n`)
+    return distance
+  }
 
-	toString(): string {
-		return `${this.name}(${this.coordinate})`
-	}
+  toString(): string {
+    return `${this.name}(${this.coordinate})`
+  }
 }
 
 const graph = new Graph({
-	linkConstructor: MyLink,
-	nodeConstructor: MyNode,
+  linkConstructor: MyLink,
+  nodeConstructor: MyNode,
 })
 
 graph.addNode({ id: 1, coordinate: { latitude: 35.2959786, longitude: 135.1162364, unit: Degree }, name: "福知山駅" })
@@ -93,24 +93,24 @@ const arrival = graph.nodeById(12)
 const departure = graph.nodeById(2)
 
 const discovery = aStar.findShortestPath({
-	arrivalNodeId: arrival.id,
-	departureNodeId: departure.id,
-	graph: graph,
-	heuristicCost: MyNode.distance,
+  arrivalNodeId: arrival.id,
+  departureNodeId: departure.id,
+  graph: graph,
+  heuristicCost: MyNode.distance,
 })
 switch (discovery.result) {
-	case 'Found':
-		let previousNode: MyNode
-		let travelled: number = 0
-		for (const node of discovery.path) {
-			travelled += previousNode?.printLinkTo(node) ?? 0
-			console.log(`${node}`)
-			previousNode = node
-		}
-		console.log()
-		console.log(`累計距離: ${travelled / 1000}(km)`)
-		console.log(`直線距離: ${departure.distanceTo(arrival) / 1000}(km)`)
-		process.exit(0)
-	case 'No Route':
-		process.exit(1)
+  case 'Found':
+    let previousNode: MyNode
+    let travelled: number = 0
+    for (const node of discovery.path) {
+      travelled += previousNode?.printLinkTo(node) ?? 0
+      console.log(`${node}`)
+      previousNode = node
+    }
+    console.log()
+    console.log(`累計距離: ${travelled / 1000}(km)`)
+    console.log(`直線距離: ${departure.distanceTo(arrival) / 1000}(km)`)
+    process.exit(0)
+  case 'No Route':
+    process.exit(1)
 }
