@@ -38,10 +38,10 @@ export class NeighborhoodArray extends Array<Neighborhood> {
 }
 
 export class NeighborhoodCache extends Map<number, NeighborhoodArray> {
-  private hit: number = 0
+  private hit = 0
   private index: number
   notifier: (neighborhoods: Neighborhood[]) => Promise<void>
-  private total: number = 0
+  private total = 0
 
   constructor(private readonly limit: number, private readonly numberOfThreads: number, private readonly points: Euclidean.PointLike[], private readonly workerThreadIndex: number) {
     super()

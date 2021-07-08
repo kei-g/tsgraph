@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import { Canvas, loadImage } from 'canvas'
 import * as fs from 'fs'
 
@@ -99,8 +100,8 @@ async function drawGraphAndPath(arrival: Euclidean.Point, destPath: string, sour
 }
 
 async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestPath: string, imageSourcePath: string, random: Standard.Random.Device): Promise<number> {
-  const arrival = graph.nodeById(random.integer % graph["nodes"].size)
-  const departure = graph.nodeById(random.integer % graph["nodes"].size)
+  const arrival = graph.nodeById(random.integer % graph['nodes'].size)
+  const departure = graph.nodeById(random.integer % graph['nodes'].size)
   stdout.log(`finding shortest path from ${departure} to ${arrival}\n`)
   const discovery = aStar.findShortestPath({
     arrivalNodeId: arrival.id,
@@ -109,23 +110,23 @@ async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestP
     heuristicCost: MyNode.distance
   })
   switch (discovery.result) {
-    case 'Found':
-      let previousNode: MyNode
-      let travelled: number = 0
-      for (const node of discovery.path) {
-        travelled += previousNode?.printLinkTo(node) ?? 0
-        stdout.log(`${node}\n`)
-        previousNode = node
-      }
-      stdout.log("\n")
-      stdout.log(`累計距離: ${Math.round(travelled * 1000) / 1000}\n`)
-      stdout.log(`直線距離: ${Math.round(departure.distanceTo(arrival) * 1000) / 1000}\n`)
-      await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
-      return 0
-    case 'No Route':
-      console.log(discovery.result)
-      await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
-      process.exit(1)
+  case 'Found':
+    let previousNode: MyNode
+    let travelled = 0
+    for (const node of discovery.path) {
+      travelled += previousNode?.printLinkTo(node) ?? 0
+      stdout.log(`${node}\n`)
+      previousNode = node
+    }
+    stdout.log('\n')
+    stdout.log(`累計距離: ${Math.round(travelled * 1000) / 1000}\n`)
+    stdout.log(`直線距離: ${Math.round(departure.distanceTo(arrival) * 1000) / 1000}\n`)
+    await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
+    return 0
+  case 'No Route':
+    console.log(discovery.result)
+    await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
+    process.exit(1)
   }
 }
 
@@ -143,20 +144,20 @@ for (let i = 0; i < argv.length; i++)
   if (argv[i].split('/').reverse()[0].startsWith('solve.ts')) {
     for (let j = i + 1; j < argv.length; j++)
       switch (argv[j]) {
-        case '-d':
-        case '--dest':
-        case '--destination':
-          imageDestPath = argv[++j]
-          break
-        case '-j':
-        case '--json':
-          jsonPath = argv[++j]
-          break
-        case '-s':
-        case '--src':
-        case '--source':
-          imageSourcePath = argv[++j]
-          break
+      case '-d':
+      case '--dest':
+      case '--destination':
+        imageDestPath = argv[++j]
+        break
+      case '-j':
+      case '--json':
+        jsonPath = argv[++j]
+        break
+      case '-s':
+      case '--src':
+      case '--source':
+        imageSourcePath = argv[++j]
+        break
       }
     break
   }

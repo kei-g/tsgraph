@@ -1,3 +1,5 @@
+/* eslint-disable no-case-declarations */
+
 import * as aStar from './aStar'
 import { Coordinate, distanceWGS84 } from './coordinate'
 import { Degree } from './coordinateUnit'
@@ -51,24 +53,24 @@ const graph = new Graph({
   nodeConstructor: MyNode,
 })
 
-graph.addNode({ id: 1, coordinate: { latitude: 35.2959786, longitude: 135.1162364, unit: Degree }, name: "福知山駅" })
-graph.addNode({ id: 2, coordinate: { latitude: 33.590188, longitude: 130.420685, unit: Degree }, name: "博多駅" })
-graph.addNode({ id: 3, coordinate: { latitude: 34.397667, longitude: 132.4731899, unit: Degree }, name: "広島駅" })
-graph.addNode({ id: 4, coordinate: { latitude: 34.7062884, longitude: 135.1932788, unit: Degree }, name: "新神戸駅" })
-graph.addNode({ id: 5, coordinate: { latitude: 33.8869653, longitude: 130.8125353, unit: Degree }, name: "小倉駅" })
-graph.addNode({ id: 6, coordinate: { latitude: 34.9850014, longitude: 135.7579708, unit: Degree }, name: "京都駅" })
-graph.addNode({ id: 7, coordinate: { latitude: 35.4640295, longitude: 133.061707, unit: Degree }, name: "松江駅" })
-graph.addNode({ id: 8, coordinate: { latitude: 35.170915, longitude: 136.881537, unit: Degree }, name: "名古屋駅" })
-graph.addNode({ id: 9, coordinate: { latitude: 34.6661212, longitude: 133.9155448, unit: Degree }, name: "岡山駅" })
-graph.addNode({ id: 10, coordinate: { latitude: 35.9062039, longitude: 139.6237359, unit: Degree }, name: "大宮駅" })
-graph.addNode({ id: 11, coordinate: { latitude: 34.7334658, longitude: 135.498066, unit: Degree }, name: "新大阪駅" })
-graph.addNode({ id: 12, coordinate: { latitude: 43.068564, longitude: 141.3507138, unit: Degree }, name: "札幌駅" })
-graph.addNode({ id: 13, coordinate: { latitude: 33.9505767, longitude: 130.919912, unit: Degree }, name: "下関駅" })
-graph.addNode({ id: 14, coordinate: { latitude: 34.972187, longitude: 138.3867118, unit: Degree }, name: "静岡駅" })
-graph.addNode({ id: 15, coordinate: { latitude: 35.6812362, longitude: 139.7649361, unit: Degree }, name: "東京駅" })
-graph.addNode({ id: 16, coordinate: { latitude: 35.4939993, longitude: 134.2237078, unit: Degree }, name: "鳥取駅" })
-graph.addNode({ id: 17, coordinate: { latitude: 34.7629201, longitude: 137.3797326, unit: Degree }, name: "豊橋駅" })
-graph.addNode({ id: 18, coordinate: { latitude: 35.5068084, longitude: 139.615388, unit: Degree }, name: "新横浜駅" })
+graph.addNode({ id: 1, coordinate: { latitude: 35.2959786, longitude: 135.1162364, unit: Degree }, name: '福知山駅' })
+graph.addNode({ id: 2, coordinate: { latitude: 33.590188, longitude: 130.420685, unit: Degree }, name: '博多駅' })
+graph.addNode({ id: 3, coordinate: { latitude: 34.397667, longitude: 132.4731899, unit: Degree }, name: '広島駅' })
+graph.addNode({ id: 4, coordinate: { latitude: 34.7062884, longitude: 135.1932788, unit: Degree }, name: '新神戸駅' })
+graph.addNode({ id: 5, coordinate: { latitude: 33.8869653, longitude: 130.8125353, unit: Degree }, name: '小倉駅' })
+graph.addNode({ id: 6, coordinate: { latitude: 34.9850014, longitude: 135.7579708, unit: Degree }, name: '京都駅' })
+graph.addNode({ id: 7, coordinate: { latitude: 35.4640295, longitude: 133.061707, unit: Degree }, name: '松江駅' })
+graph.addNode({ id: 8, coordinate: { latitude: 35.170915, longitude: 136.881537, unit: Degree }, name: '名古屋駅' })
+graph.addNode({ id: 9, coordinate: { latitude: 34.6661212, longitude: 133.9155448, unit: Degree }, name: '岡山駅' })
+graph.addNode({ id: 10, coordinate: { latitude: 35.9062039, longitude: 139.6237359, unit: Degree }, name: '大宮駅' })
+graph.addNode({ id: 11, coordinate: { latitude: 34.7334658, longitude: 135.498066, unit: Degree }, name: '新大阪駅' })
+graph.addNode({ id: 12, coordinate: { latitude: 43.068564, longitude: 141.3507138, unit: Degree }, name: '札幌駅' })
+graph.addNode({ id: 13, coordinate: { latitude: 33.9505767, longitude: 130.919912, unit: Degree }, name: '下関駅' })
+graph.addNode({ id: 14, coordinate: { latitude: 34.972187, longitude: 138.3867118, unit: Degree }, name: '静岡駅' })
+graph.addNode({ id: 15, coordinate: { latitude: 35.6812362, longitude: 139.7649361, unit: Degree }, name: '東京駅' })
+graph.addNode({ id: 16, coordinate: { latitude: 35.4939993, longitude: 134.2237078, unit: Degree }, name: '鳥取駅' })
+graph.addNode({ id: 17, coordinate: { latitude: 34.7629201, longitude: 137.3797326, unit: Degree }, name: '豊橋駅' })
+graph.addNode({ id: 18, coordinate: { latitude: 35.5068084, longitude: 139.615388, unit: Degree }, name: '新横浜駅' })
 
 graph.addLink({ id: 1, from: 2, to: 5 })
 graph.addLink({ id: 2, from: 5, to: 13 })
@@ -99,18 +101,20 @@ const discovery = aStar.findShortestPath({
   heuristicCost: MyNode.distance,
 })
 switch (discovery.result) {
-  case 'Found':
-    let previousNode: MyNode
-    let travelled: number = 0
-    for (const node of discovery.path) {
-      travelled += previousNode?.printLinkTo(node) ?? 0
-      console.log(`${node}`)
-      previousNode = node
-    }
-    console.log()
-    console.log(`累計距離: ${travelled / 1000}(km)`)
-    console.log(`直線距離: ${departure.distanceTo(arrival) / 1000}(km)`)
-    process.exit(0)
-  case 'No Route':
-    process.exit(1)
+case 'Found':
+  let previousNode: MyNode
+  let travelled = 0
+  for (const node of discovery.path) {
+    travelled += previousNode?.printLinkTo(node) ?? 0
+    console.log(`${node}`)
+    previousNode = node
+  }
+  console.log()
+  console.log(`累計距離: ${travelled / 1000}(km)`)
+  console.log(`直線距離: ${departure.distanceTo(arrival) / 1000}(km)`)
+  process.exit(0)
+  break
+case 'No Route':
+  process.exit(1)
+  break
 }

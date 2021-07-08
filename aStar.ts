@@ -1,3 +1,7 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Comparator, PriorityQueue } from '@kei-g/priority-queue'
 import { Graph, Link, Node } from './graph'
 
