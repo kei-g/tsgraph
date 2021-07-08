@@ -1,124 +1,124 @@
 import * as Euclidean from './euclidean'
 
 export class Neighborhood implements NeighborhoodLike {
-	static selectIndex(neighborhood: Neighborhood): number {
-		return neighborhood.index
-	}
+  static selectIndex(neighborhood: Neighborhood): number {
+    return neighborhood.index
+  }
 
-	readonly index: number
-	readonly squareOfDistance: number
+  readonly index: number
+  readonly squareOfDistance: number
 
-	constructor(param: NeighborhoodLike) {
-		this.index = param.index
-		this.squareOfDistance = param.squareOfDistance
-	}
+  constructor(param: NeighborhoodLike) {
+    this.index = param.index
+    this.squareOfDistance = param.squareOfDistance
+  }
 
-	isFatherThan(index: number, squareOfDistance: number): boolean {
-		return index != this.index && squareOfDistance < this.squareOfDistance
-	}
+  isFatherThan(index: number, squareOfDistance: number): boolean {
+    return index != this.index && squareOfDistance < this.squareOfDistance
+  }
 }
 
 export class NeighborhoodArray extends Array<Neighborhood> {
-	add(index: number, limit: number, squareOfDistance: number): void {
-		this.insert(index, limit, squareOfDistance) ??
-			this.length < limit ? this.push(new Neighborhood({ index, squareOfDistance })) : {}
-	}
+  add(index: number, limit: number, squareOfDistance: number): void {
+    this.insert(index, limit, squareOfDistance) ??
+      this.length < limit ? this.push(new Neighborhood({ index, squareOfDistance })) : {}
+  }
 
-	private insert(index: number, limit: number, squareOfDistance: number): number | undefined {
-		const found = this.findIndex((neighborhood: Neighborhood) => neighborhood.isFatherThan(index, squareOfDistance))
-		if (0 <= found) {
-			const rhs = this.splice(found)
-			this.push(new Neighborhood({ index, squareOfDistance }))
-			const available = limit - this.length
-			if (0 < available)
-				this.push(...rhs.slice(0, available))
-			return found
-		}
-	}
+  private insert(index: number, limit: number, squareOfDistance: number): number | undefined {
+    const found = this.findIndex((neighborhood: Neighborhood) => neighborhood.isFatherThan(index, squareOfDistance))
+    if (0 <= found) {
+      const rhs = this.splice(found)
+      this.push(new Neighborhood({ index, squareOfDistance }))
+      const available = limit - this.length
+      if (0 < available)
+        this.push(...rhs.slice(0, available))
+      return found
+    }
+  }
 }
 
 export class NeighborhoodCache extends Map<number, NeighborhoodArray> {
-	private hit: number = 0
-	private index: number
-	notifier: (neighborhoods: Neighborhood[]) => Promise<void>
-	private total: number = 0
+  private hit: number = 0
+  private index: number
+  notifier: (neighborhoods: Neighborhood[]) => Promise<void>
+  private total: number = 0
 
-	constructor(private readonly limit: number, private readonly numberOfThreads: number, private readonly points: Euclidean.PointLike[], private readonly workerThreadIndex: number) {
-		super()
-	}
+  constructor(private readonly limit: number, private readonly numberOfThreads: number, private readonly points: Euclidean.PointLike[], private readonly workerThreadIndex: number) {
+    super()
+  }
 
-	private async add(depth: number, neighbor: Neighborhood | NeighborhoodLike): Promise<void> {
-		if (this.has(neighbor.index))
-			this.get(neighbor.index).add(neighbor.index, this.limit, neighbor.squareOfDistance)
-		else
-			this.addRecursive(depth, neighbor)
-	}
+  private async add(depth: number, neighbor: Neighborhood | NeighborhoodLike): Promise<void> {
+    if (this.has(neighbor.index))
+      this.get(neighbor.index).add(neighbor.index, this.limit, neighbor.squareOfDistance)
+    else
+      this.addRecursive(depth, neighbor)
+  }
 
-	private async addRecursive(depth: number, neighbor: Neighborhood | NeighborhoodLike): Promise<void> {
-		const a = new NeighborhoodArray()
-		const base = this.points[neighbor.index]
-		const squareOfDistance = Euclidean.Point.squareOfDistance(base)
-		for (let i = 0; i < this.points.length; i++)
-			if (i == neighbor.index)
-				a.add(i, this.limit, neighbor.squareOfDistance)
-			else
-				a.add(i, this.limit, squareOfDistance(this.points[i]))
-		this.set(neighbor.index, a)
-		const mywork: Neighborhood[] = []
-		const notmywork: Neighborhood[] = []
-		for (const b of a)
-			if ((b.index % this.numberOfThreads) != this.workerThreadIndex)
-				notmywork.push(b)
-			else if (this.index < b.index)
-				mywork.push(b)
-		this.notifier?.(notmywork)
-		for (const b of mywork)
-			this.add(depth + 1, b)
-	}
+  private async addRecursive(depth: number, neighbor: Neighborhood | NeighborhoodLike): Promise<void> {
+    const a = new NeighborhoodArray()
+    const base = this.points[neighbor.index]
+    const squareOfDistance = Euclidean.Point.squareOfDistance(base)
+    for (let i = 0; i < this.points.length; i++)
+      if (i == neighbor.index)
+        a.add(i, this.limit, neighbor.squareOfDistance)
+      else
+        a.add(i, this.limit, squareOfDistance(this.points[i]))
+    this.set(neighbor.index, a)
+    const mywork: Neighborhood[] = []
+    const notmywork: Neighborhood[] = []
+    for (const b of a)
+      if ((b.index % this.numberOfThreads) != this.workerThreadIndex)
+        notmywork.push(b)
+      else if (this.index < b.index)
+        mywork.push(b)
+    this.notifier?.(notmywork)
+    for (const b of mywork)
+      this.add(depth + 1, b)
+  }
 
-	private cachedNeighborhoods(limit: number): number[] {
-		this.hit++
-		const neighborhoods = this.get(this.index).slice(0, limit).map(Neighborhood.selectIndex)
-		this.delete(this.index)
-		return neighborhoods
-	}
+  private cachedNeighborhoods(limit: number): number[] {
+    this.hit++
+    const neighborhoods = this.get(this.index).slice(0, limit).map(Neighborhood.selectIndex)
+    this.delete(this.index)
+    return neighborhoods
+  }
 
-	get hitRatio(): number {
-		return Math.round(this.hit * 10000 / this.total) / 100
-	}
+  get hitRatio(): number {
+    return Math.round(this.hit * 10000 / this.total) / 100
+  }
 
-	private isMyResponsibility(neighbor: Neighborhood): boolean {
-		return this.index < neighbor.index && (neighbor.index % this.numberOfThreads) == this.workerThreadIndex
-	}
+  private isMyResponsibility(neighbor: Neighborhood): boolean {
+    return this.index < neighbor.index && (neighbor.index % this.numberOfThreads) == this.workerThreadIndex
+  }
 
-	neighborhoods(index: number, limit: number): number[] {
-		this.total++
-		this.index = index
-		return this.has(index) ? this.cachedNeighborhoods(limit) : this.noncachedNeighborhoods(limit)
-	}
+  neighborhoods(index: number, limit: number): number[] {
+    this.total++
+    this.index = index
+    return this.has(index) ? this.cachedNeighborhoods(limit) : this.noncachedNeighborhoods(limit)
+  }
 
-	private noncachedNeighborhoods(limit: number): number[] {
-		const neighborhoods = new NeighborhoodArray()
-		const base = this.points[this.index]
-		const squareOfDistance = Euclidean.Point.squareOfDistance(base)
-		for (let i = 0; i < this.points.length; i++)
-			if (i != this.index)
-				neighborhoods.add(i, this.limit, squareOfDistance(this.points[i]))
-		this.notifier?.(neighborhoods.filter(neighbor => neighbor.index % this.numberOfThreads != this.workerThreadIndex))
-		for (const neighbor of neighborhoods)
-			if (this.isMyResponsibility(neighbor))
-				this.add(0, neighbor)
-		return neighborhoods.slice(0, limit).map(Neighborhood.selectIndex)
-	}
+  private noncachedNeighborhoods(limit: number): number[] {
+    const neighborhoods = new NeighborhoodArray()
+    const base = this.points[this.index]
+    const squareOfDistance = Euclidean.Point.squareOfDistance(base)
+    for (let i = 0; i < this.points.length; i++)
+      if (i != this.index)
+        neighborhoods.add(i, this.limit, squareOfDistance(this.points[i]))
+    this.notifier?.(neighborhoods.filter(neighbor => neighbor.index % this.numberOfThreads != this.workerThreadIndex))
+    for (const neighbor of neighborhoods)
+      if (this.isMyResponsibility(neighbor))
+        this.add(0, neighbor)
+    return neighborhoods.slice(0, limit).map(Neighborhood.selectIndex)
+  }
 
-	receive(neighborhoods: NeighborhoodLike[]): void {
-		for (const neighbor of neighborhoods)
-			if (this.index < neighbor.index)
-				this.add(0, neighbor)
-	}
+  receive(neighborhoods: NeighborhoodLike[]): void {
+    for (const neighbor of neighborhoods)
+      if (this.index < neighbor.index)
+        this.add(0, neighbor)
+  }
 }
 
 export type NeighborhoodLike = {
-	index: number
-	squareOfDistance: number
+  index: number
+  squareOfDistance: number
 }

@@ -1,29 +1,29 @@
 import { Coordinate } from './coordinate'
 
 export class Degree {
-	convert(coordinate: Coordinate<Degree>): Coordinate<Radian> {
-		return new Coordinate<Radian>({
-			latitude: coordinate.latitude * Math.PI / 180,
-			longitude: coordinate.longitude * Math.PI / 180,
-			unit: Radian,
-		})
-	}
+  convert(coordinate: Coordinate<Degree>): Coordinate<Radian> {
+    return new Coordinate<Radian>({
+      latitude: coordinate.latitude * Math.PI / 180,
+      longitude: coordinate.longitude * Math.PI / 180,
+      unit: Radian,
+    })
+  }
 
-	get JSON(): string {
-		return `"Degree"`
-	}
+  get JSON(): string {
+    return `"Degree"`
+  }
 }
 
 export class Radian {
-	convert(coordinate: Coordinate<Radian>): Coordinate<Degree> {
-		return new Coordinate<Degree>({
-			latitude: coordinate.latitude * 180 / Math.PI,
-			longitude: coordinate.longitude * 180 / Math.PI,
-			unit: Degree,
-		})
-	}
+  convert(coordinate: Coordinate<Radian>): Coordinate<Degree> {
+    return new Coordinate<Degree>({
+      latitude: coordinate.latitude * 180 / Math.PI,
+      longitude: coordinate.longitude * 180 / Math.PI,
+      unit: Degree,
+    })
+  }
 
-	get JSON(): string {
-		return `"Radian"`
-	}
+  get JSON(): string {
+    return `"Radian"`
+  }
 }
