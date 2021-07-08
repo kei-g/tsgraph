@@ -1,10 +1,12 @@
+/* eslint-disable @typescript-eslint/no-namespace */
+
 import * as fs from 'fs'
 
 export class Output {
   private readonly fd: number
 
   constructor() {
-    this.fd = fs.openSync("/dev/stdout", "w")
+    this.fd = fs.openSync('/dev/stdout', 'w')
     Object.freeze(this.fd)
   }
 
@@ -15,12 +17,12 @@ export class Output {
 
 export namespace Random {
   export class Device {
-    private static readonly Base64Species = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+    private static readonly Base64Species = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     private readonly fd: number
     private readonly species: string
 
     constructor(private readonly stringLength: number = 16) {
-      this.fd = fs.openSync("/dev/urandom", "r")
+      this.fd = fs.openSync('/dev/urandom', 'r')
       this.species = Device.Base64Species
       Object.freeze(Device.Base64Species)
       Object.freeze(this.fd)

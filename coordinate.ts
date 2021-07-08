@@ -41,9 +41,9 @@ const hubeny = (equatorialRadius: number, squareOfEccentricity: number, meridian
   return Math.sqrt(dxN * dxN + dyM * dyM)
 }
 
-const equatorialRadius: number = 6378137 // 赤道半径
-const squareOfEccentricity: number = 0.00669437999019758 // 離心率の平方
-const meridianRadiusOfCurvature: number = 6335439.32729246 // 子午線曲率半径
+const equatorialRadius = 6378137 // 赤道半径
+const squareOfEccentricity = 0.00669437999019758 // 離心率の平方
+const meridianRadiusOfCurvature = 6335439.32729246 // 子午線曲率半径
 export const distanceWGS84 = hubeny(equatorialRadius, squareOfEccentricity, meridianRadiusOfCurvature)
 
 export type CoordinateParameter<T extends Degree | Radian> = {

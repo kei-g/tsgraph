@@ -1,3 +1,5 @@
+/* eslint-disable quotes */
+
 import { Coordinate } from './coordinate'
 
 export class Degree {

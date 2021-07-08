@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { Canvas } from 'canvas'
 import * as fs from 'fs'
 import { Worker } from 'worker_threads'
@@ -9,7 +11,7 @@ import * as Standard from './standard'
 
 class LinkGenerator {
   private readonly generated: boolean[]
-  private numberOfLinks: number = 0
+  private numberOfLinks = 0
   private resolve: (value: void | PromiseLike<void>) => void
 
   constructor(private graph: MyGraphLike, private readonly numberOfNodes: number, private readonly workers: Worker[]) {
@@ -35,7 +37,7 @@ class LinkGenerator {
   generate(): Promise<void> {
     return new Promise<void>(resolve => {
       this.resolve = resolve
-      stdout.log("generating links...\n")
+      stdout.log('generating links...\n')
       const promises: Promise<void>[] = []
       for (let i = 0; i < this.numberOfNodes; i++)
         promises.push(this.enqueueMessage(i % this.workers.length, { generateLink: { from: i } }))
@@ -96,7 +98,7 @@ class MyGraphLike {
     const links: string[] = []
     for (const link of this.links)
       links.push(link.JSON)
-    return `{"graph":{"nodes":[${nodes.join(",")}],"links":[${links.join(",")}]}}`
+    return `{"graph":{"nodes":[${nodes.join(',')}],"links":[${links.join(',')}]}}`
   }
 }
 
@@ -146,7 +148,7 @@ function drawNodes(context: CanvasRenderingContext2D, nodes: Euclidean.Point[], 
     stdout.log(`\r${i}/${nodes.length}`)
     const p = nodes[i]
     context.beginPath()
-    context.fillStyle = `rgba(255, 255, 255, 255)`
+    context.fillStyle = 'rgba(255, 255, 255, 255)'
     context.arc((p.x / 4294967295) * size, (p.y / 4294967295) * size, 2, 0, Math.PI * 2)
     context.fill()
   }
@@ -167,7 +169,7 @@ function drawGraph(filePath: string, graph: MyGraphLike, nodes: Euclidean.Point[
 }
 
 function generateNodes(graph: MyGraphLike, numberOfNodes: number, random: Standard.Random.Device): Euclidean.Point[] {
-  stdout.log("generating nodes...\n")
+  stdout.log('generating nodes...\n')
   const positions: Euclidean.Point[] = []
   for (let i = 0; i < numberOfNodes; i++) {
     const position = Euclidean.Point.from(random)
@@ -180,7 +182,7 @@ function generateNodes(graph: MyGraphLike, numberOfNodes: number, random: Standa
 }
 
 function spawnWorkerThreads(numberOfThreads: number, positions: Euclidean.Point[]): Worker[] {
-  stdout.log("spawning worker threads...\n")
+  stdout.log('spawning worker threads...\n')
   const workers = sequence(numberOfThreads).map(index => {
     stdout.log(`\r${index + 1}/${numberOfThreads}`)
     return new Worker(__dirname + '/worker.js', {
@@ -205,31 +207,31 @@ for (let i = 0; i < argv.length; i++)
   if (argv[i].split('/').reverse()[0].startsWith('generate.ts')) {
     for (let j = i + 1; j < argv.length; j++) {
       switch (argv[j]) {
-        case '-i':
-        case '--image':
-        case '--image-path':
-          imagePath = argv[++j]
-          break
-        case '-j':
-        case '--json':
-        case '--json-path':
-          jsonPath = argv[++j]
-          break
-        case '-n':
-        case '--nodes':
-        case '--number-of-nodes':
-          numNodes = +argv[++j]
-          break
-        case '-s':
-        case '--image-size':
-        case '--size':
-          imageSize = +argv[++j]
-          break
-        case '-t':
-        case '--threads':
-        case '--number-of-threads':
-          numThreads = +argv[++j]
-          break
+      case '-i':
+      case '--image':
+      case '--image-path':
+        imagePath = argv[++j]
+        break
+      case '-j':
+      case '--json':
+      case '--json-path':
+        jsonPath = argv[++j]
+        break
+      case '-n':
+      case '--nodes':
+      case '--number-of-nodes':
+        numNodes = +argv[++j]
+        break
+      case '-s':
+      case '--image-size':
+      case '--size':
+        imageSize = +argv[++j]
+        break
+      case '-t':
+      case '--threads':
+      case '--number-of-threads':
+        numThreads = +argv[++j]
+        break
       }
     }
     break

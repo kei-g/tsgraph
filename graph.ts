@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { DuplicateException } from './common'
 
 export abstract class Node<T> implements NodeParameter<T> {
@@ -93,16 +95,16 @@ export class Graph<T, L extends Link<T>, N extends Node<T>> extends Node<T> {
     const links: string[] = []
     for (const link of this.links.values())
       links.push(link.JSON)
-    return `{"graph":{"nodes":[${nodes.join(",")}],"links":[${links.join(",")}]}}`
+    return `{"graph":{"nodes":[${nodes.join(',')}],"links":[${links.join(',')}]}}`
   }
 
   set JSON(json: string) {
     this.linkIdsGroupedByFromNodeId.clear()
     this.links.clear()
     this.nodes.clear()
-    const graph = JSON.parse(json)["graph"]
-    const links = graph["links"] as LinkParameter<T>[]
-    const nodes = graph["nodes"] as NodeParameter<T>[]
+    const graph = JSON.parse(json)['graph']
+    const links = graph['links'] as LinkParameter<T>[]
+    const nodes = graph['nodes'] as NodeParameter<T>[]
     for (const param of nodes)
       this.addNode(param)
     for (const param of links)
