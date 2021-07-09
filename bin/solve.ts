@@ -2,10 +2,10 @@
 import { Canvas, loadImage } from 'canvas'
 import * as fs from 'fs'
 
-import * as aStar from './aStar'
-import * as Euclidean from './euclidean'
-import { Graph, Link, LinkParameter, Node } from './graph'
-import * as Standard from './standard'
+import * as aStar from '../lib/aStar'
+import * as Euclidean from '../lib/euclidean'
+import { Graph, Link, LinkParameter, Node } from '../lib/graph'
+import * as Standard from '../lib/standard'
 
 class MyLink extends Link<number> {
   constructor(param: LinkParameter<number>) {

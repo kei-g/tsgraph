@@ -4,10 +4,10 @@ import { Canvas } from 'canvas'
 import * as fs from 'fs'
 import { Worker } from 'worker_threads'
 
-import { notnull, sequence } from './common'
-import * as Euclidean from './euclidean'
-import { NeighborhoodLike } from './neighborhoods'
-import * as Standard from './standard'
+import { notnull, sequence } from '../lib/common'
+import * as Euclidean from '../lib/euclidean'
+import { NeighborhoodLike } from '../lib/neighborhoods'
+import * as Standard from '../lib/standard'
 
 class LinkGenerator {
   private readonly generated: boolean[]
