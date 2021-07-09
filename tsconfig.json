@@ -16,8 +16,8 @@
 	},
   "files": [
     "./example.ts",
-    "bin/generate.ts",
-    "bin/solve.ts",
+    "bin/tsgraph-generate.ts",
+    "bin/tsgraph-solve.ts",
     "lib/aStar.ts",
     "lib/common.ts",
     "lib/coordinate.ts",
