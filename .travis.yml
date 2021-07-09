@@ -5,3 +5,4 @@ node_js:
 dist: focal
 script:
   - npm run example
+  - npm run build
