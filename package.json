@@ -31,6 +31,7 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
+    "build": "tsc",
     "example": "ts-node example.ts",
     "generate": "ts-node generate.ts",
     "lint": "eslint *.ts",
