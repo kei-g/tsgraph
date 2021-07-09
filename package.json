@@ -32,12 +32,12 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
-    "build": "tsc && [ -d dist ] || mkdir dist && { cd build && find . -type f | while read name; do uglifyjs $name --compress --mangle > ../dist/$name; done }",
+    "build": "tsc && [ -d dist/bin ] || mkdir -p dist/bin && [ -d dist/lib ] || mkdir dist/lib && cd build && find . -type f | while read name; do uglifyjs $name --compress --mangle > ../dist/$name; done",
     "example": "ts-node example.ts",
-    "generate": "ts-node generate.ts",
-    "lint": "eslint *.ts",
-    "solve": "ts-node solve.ts",
-    "start": "ts-node generate.ts && ts-node solve.ts"
+    "generate": "ts-node bin/generate.ts",
+    "lint": "eslint bin/*.ts lib/*.ts *.ts",
+    "solve": "ts-node bin/solve.ts",
+    "start": "ts-node bin/generate.ts && ts-node bin/solve.ts"
   },
   "version": "1.0.0"
 }

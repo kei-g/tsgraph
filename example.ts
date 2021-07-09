@@ -1,9 +1,9 @@
 /* eslint-disable no-case-declarations */
 
-import * as aStar from './aStar'
-import { Coordinate, distanceWGS84 } from './coordinate'
-import { Degree } from './coordinateUnit'
-import { Graph, Link, LinkParameter, Node } from './graph'
+import * as aStar from './lib/aStar'
+import { Coordinate, distanceWGS84 } from './lib/coordinate'
+import { Degree } from './lib/coordinateUnit'
+import { Graph, Link, LinkParameter, Node } from './lib/graph'
 
 class MyLink extends Link<number> {
   constructor(param: LinkParameter<number>) {
