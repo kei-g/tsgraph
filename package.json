@@ -4,6 +4,7 @@
     "name": "kei-g"
   },
   "bin": {
+    "tsgraph": "./tsgraph.js",
     "tsgraph-generate": "./bin/generate.js",
     "tsgraph-solve": "./bin/solve.js"
   },
