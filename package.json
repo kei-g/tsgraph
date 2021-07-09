@@ -42,7 +42,7 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
-    "build": "tsc && [ -d dist/bin ] || mkdir -p dist/bin && [ -d dist/lib ] || mkdir dist/lib && cd build && find . -type f | while read name; do uglifyjs $name --compress --mangle > ../dist/$name; done",
+    "build": "npm run lint && tsc && [ -d dist/bin ] || mkdir -p dist/bin && [ -d dist/lib ] || mkdir dist/lib && cd build && find . -type f | while read name; do uglifyjs $name --compress --mangle > ../dist/$name; done",
     "clean": "rm -fr build/ dist/",
     "example": "ts-node example.ts",
     "generate": "ts-node bin/generate.ts",
