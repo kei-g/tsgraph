@@ -19,7 +19,7 @@
 | --image | --image-path | -i | string | 'tsgraph.png' | a file path to store picture |
 | --json | --json-path | -j | string | 'tsgraph.json' | a file path to store graph |
 | --nodes | --number-of-nodes | -n | integer | 65536 | a number of nodes to generate |
-| --size | --image-size | -s | integer | 8192 | a resolution of the picture, this means width and height |
+| --size | --image-size | -s | integer | 8192 | a resolution of the picture <br> this means width and height |
 | --threads | --number-of-threads | -t | integer | 16 | a number of threads to generate links concurrently |
 
 ### tsgraph-solve
