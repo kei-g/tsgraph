@@ -1,6 +1,5 @@
 **/*.png
 **/*.svg
-**/.vscode/
 **/bin/
 **/build/
 **/lib/
