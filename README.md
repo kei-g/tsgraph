@@ -28,6 +28,6 @@
 
 | option | long | short | default value | description |
 | ---- | ---- | ---- | ---- | ---- |
-| --dest | --destination | -d | 'tsgraph{0-}.png' | a file path to save picture <br> if this option was omitted, <br> the path is suggested such as 'tsgraph0.png', 'tsgraph1.png', ... |
+| --dest | --destination | -d | 'tsgraph{0-}.png' | a file path to save picture <br> if this option was omitted, <br> the path is suggested such as <br> 'tsgraph0.png', <br> 'tsgraph1.png', <br> ... |
 | --json | | -j | 'tsgraph.json' | a file path of graph to solve |
 | --src | --source | -s | 'tsgraph.png' | a file path to a picture of the graph to solve |
