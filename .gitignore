@@ -1,4 +1,6 @@
 **/.vscode/
+**/build/
+**/dist/
 **/node_modules/
 **/tsgraph.json
 **/*.png
