@@ -5,6 +5,7 @@
 cd build && find bin -type f | while read name; do
   echo '#!/usr/bin/env node' > ../$name || exit 1
   npx uglifyjs $name --compress --mangle >> ../$name || exit 1
+  chmod +x ../$name || exit 1
 done
 
 cd ..
@@ -20,6 +21,7 @@ cd ..
 cd build && find . -maxdepth 1 -type f | while read name; do
   echo '#!/usr/bin/env node' > ../$name || exit 1
   npx uglifyjs $name --compress --mangle >> ../$name || exit 1
+  chmod +x ../$name || exit 1
 done
 
 cd ..
