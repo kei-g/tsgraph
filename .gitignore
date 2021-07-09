@@ -1,7 +1,9 @@
-**/.vscode/
-**/build/
-**/dist/
-**/node_modules/
-**/tsgraph.json
 **/*.png
 **/*.svg
+**/.vscode/
+**/bin/
+**/build/
+**/lib/
+**/node_modules/
+**/tsgraph.js
+**/tsgraph.json
