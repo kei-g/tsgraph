@@ -3,6 +3,9 @@
     "email": "km.8k6ce+github@gmail.com",
     "name": "kei-g"
   },
+  "bugs": {
+    "url": "https://github.com/kei-g/tsgraph/issues"
+  },
   "dependencies": {
     "@kei-g/priority-queue": "^1.0.2",
     "canvas": "^2.8.0"
@@ -18,6 +21,10 @@
     "uglify-js": "^3.13.10"
   },
   "displayName": "tsgraph",
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/kei-g/tsgraph",
   "keywords": [
     "A*",
     "A star",
@@ -26,8 +33,10 @@
   ],
   "license": "BSD-3-Clause",
   "main": "dist/tsgraph.js",
-  "name": "tsgraph",
-  "private": true,
+  "name": "@kei-g/tsgraph",
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/kei-g/tsgraph.git"
@@ -37,6 +46,7 @@
     "example": "ts-node example.ts",
     "generate": "ts-node bin/generate.ts",
     "lint": "eslint bin/*.ts lib/*.ts *.ts",
+    "prepublishOnly": "npm run build",
     "solve": "ts-node bin/solve.ts",
     "start": "ts-node bin/generate.ts && ts-node bin/solve.ts"
   },
