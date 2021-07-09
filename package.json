@@ -14,7 +14,8 @@
     "@typescript-eslint/parser": "^4.28.2",
     "eslint": "^7.30.0",
     "ts-node": "^10.0.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "uglify-js": "^3.13.10"
   },
   "displayName": "tsgraph",
   "keywords": [
