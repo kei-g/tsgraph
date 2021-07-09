@@ -7,7 +7,7 @@
     "url": "https://github.com/kei-g/tsgraph/issues"
   },
   "dependencies": {
-    "@kei-g/priority-queue": "^1.0.2",
+    "@kei-g/priority-queue": "^1.0.3",
     "canvas": "^2.8.0"
   },
   "description": "A star search algorithm implementation in TypeScript",
