@@ -25,6 +25,7 @@
     "TypeScript"
   ],
   "license": "BSD-3-Clause",
+  "main": "dist/tsgraph.js",
   "name": "tsgraph",
   "private": true,
   "repository": {
