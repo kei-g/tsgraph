@@ -15,7 +15,7 @@
 		"target": "ES6",
 	},
   "files": [
-    "./example.ts",
+    "./tsgraph.ts",
     "bin/tsgraph-generate.ts",
     "bin/tsgraph-solve.ts",
     "lib/aStar.ts",
