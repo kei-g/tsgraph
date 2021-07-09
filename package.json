@@ -3,6 +3,10 @@
     "email": "km.8k6ce+github@gmail.com",
     "name": "kei-g"
   },
+  "bin": {
+    "tsgraph-generate": "./bin/generate.js",
+    "tsgraph-solve": "./bin/solve.js"
+  },
   "bugs": {
     "url": "https://github.com/kei-g/tsgraph/issues"
   },
@@ -22,7 +26,9 @@
   },
   "displayName": "tsgraph",
   "files": [
-    "dist"
+    "bin",
+    "lib",
+    "tsgraph.js"
   ],
   "homepage": "https://github.com/kei-g/tsgraph",
   "keywords": [
@@ -32,7 +38,7 @@
     "TypeScript"
   ],
   "license": "BSD-3-Clause",
-  "main": "dist/tsgraph.js",
+  "main": "./tsgraph.js",
   "name": "@kei-g/tsgraph",
   "publishConfig": {
     "access": "public"
@@ -42,14 +48,14 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
-    "build": "npm run lint && tsc && [ -d dist/bin ] || mkdir -p dist/bin && [ -d dist/lib ] || mkdir dist/lib && cd build && find . -type f | while read name; do uglifyjs $name --compress --mangle > ../dist/$name; done",
-    "clean": "rm -fr build/ dist/",
-    "example": "ts-node example.ts",
-    "generate": "ts-node bin/generate.ts",
-    "lint": "eslint bin/*.ts lib/*.ts *.ts",
+    "build": "npm run lint && tsc && ./post-build.sh",
+    "clean": "rm -fr bin/ build/ lib/ tsgraph.js",
+    "example": "ts-node src/example.ts",
+    "generate": "ts-node src/bin/generate.ts",
+    "lint": "eslint src/bin/*.ts src/lib/*.ts src/*.ts",
     "prepublishOnly": "npm run build",
-    "solve": "ts-node bin/solve.ts",
-    "start": "ts-node bin/generate.ts && ts-node bin/solve.ts"
+    "solve": "ts-node src/bin/solve.ts",
+    "start": "ts-node src/bin/generate.ts && ts-node src/bin/solve.ts"
   },
   "version": "1.0.0"
 }
