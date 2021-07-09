@@ -32,7 +32,7 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && [ -d dist ] || mkdir dist && { cd build && find . -type f | while read name; do uglifyjs $name --compress --mangle > ../dist/$name; done }",
     "example": "ts-node example.ts",
     "generate": "ts-node generate.ts",
     "lint": "eslint *.ts",
