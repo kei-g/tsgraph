@@ -141,24 +141,20 @@ let jsonPath = 'tsgraph.json'
 
 const argv = process.argv
 for (let i = 0; i < argv.length; i++)
-  if (argv[i].split('/').reverse()[0].startsWith('solve.ts')) {
-    for (let j = i + 1; j < argv.length; j++)
-      switch (argv[j]) {
-      case '-d':
-      case '--dest':
-      case '--destination':
-        imageDestPath = argv[++j]
-        break
-      case '-j':
-      case '--json':
-        jsonPath = argv[++j]
-        break
-      case '-s':
-      case '--src':
-      case '--source':
-        imageSourcePath = argv[++j]
-        break
-      }
+  switch (argv[i]) {
+  case '-d':
+  case '--dest':
+  case '--destination':
+    imageDestPath = argv[++i]
+    break
+  case '-j':
+  case '--json':
+    jsonPath = argv[++i]
+    break
+  case '-s':
+  case '--src':
+  case '--source':
+    imageSourcePath = argv[++i]
     break
   }
 
