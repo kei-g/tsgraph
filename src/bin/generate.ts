@@ -185,7 +185,7 @@ function spawnWorkerThreads(numberOfThreads: number, positions: Euclidean.Point[
   stdout.log('spawning worker threads...\n')
   const workers = sequence(numberOfThreads).map(index => {
     stdout.log(`\r${index + 1}/${numberOfThreads}`)
-    return new Worker(__dirname + '/worker.js', {
+    return new Worker(__dirname + '/../lib/worker.js', {
       workerData: {
         index: index + 1,
         numberOfThreads: numberOfThreads,
@@ -204,36 +204,31 @@ let numNodes = 65536
 let numThreads = 16
 const argv = process.argv
 for (let i = 0; i < argv.length; i++)
-  if (argv[i].split('/').reverse()[0].startsWith('generate.ts')) {
-    for (let j = i + 1; j < argv.length; j++) {
-      switch (argv[j]) {
-      case '-i':
-      case '--image':
-      case '--image-path':
-        imagePath = argv[++j]
-        break
-      case '-j':
-      case '--json':
-      case '--json-path':
-        jsonPath = argv[++j]
-        break
-      case '-n':
-      case '--nodes':
-      case '--number-of-nodes':
-        numNodes = +argv[++j]
-        break
-      case '-s':
-      case '--image-size':
-      case '--size':
-        imageSize = +argv[++j]
-        break
-      case '-t':
-      case '--threads':
-      case '--number-of-threads':
-        numThreads = +argv[++j]
-        break
-      }
-    }
+  switch (argv[i]) {
+  case '-i':
+  case '--image':
+  case '--image-path':
+    imagePath = argv[++i]
+    break
+  case '-j':
+  case '--json':
+  case '--json-path':
+    jsonPath = argv[++i]
+    break
+  case '-n':
+  case '--nodes':
+  case '--number-of-nodes':
+    numNodes = +argv[++i]
+    break
+  case '-s':
+  case '--image-size':
+  case '--size':
+    imageSize = +argv[++i]
+    break
+  case '-t':
+  case '--threads':
+  case '--number-of-threads':
+    numThreads = +argv[++i]
     break
   }
 
