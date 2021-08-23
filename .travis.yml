@@ -1,4 +1,6 @@
-cache: npm
+cache:
+  directories:
+    - ~/.npm
 language: node_js
 node_js:
   - 16
