@@ -61,5 +61,5 @@
     "solve": "ts-node src/bin/solve.ts",
     "start": "ts-node src/bin/generate.ts && ts-node src/bin/solve.ts"
   },
-  "version": "1.1.1"
+  "version": "1.1.2"
 }
