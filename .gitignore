@@ -5,5 +5,6 @@
 **/build/
 **/lib/
 **/node_modules/
+**/package-lock.json
 **/tsgraph.js
 **/tsgraph.json
