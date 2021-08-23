@@ -12,18 +12,19 @@
     "url": "https://github.com/kei-g/tsgraph/issues"
   },
   "dependencies": {
-    "@kei-g/priority-queue": "^1.0.3",
+    "@kei-g/priority-queue": "^1.1.1",
     "canvas": "^2.8.0"
   },
   "description": "A star search algorithm implementation in TypeScript",
   "devDependencies": {
-    "@types/node": "^16.3.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.2",
-    "@typescript-eslint/parser": "^4.28.2",
-    "eslint": "^7.30.0",
-    "ts-node": "^10.0.0",
-    "typescript": "^4.3.5",
-    "uglify-js": "^3.13.10"
+    "@types/node": "^16.7.1",
+    "@typescript-eslint/eslint-plugin": "^4.29.2",
+    "@typescript-eslint/parser": "^4.29.2",
+    "eslint": "^7.32.0",
+    "rimraf": "^3.0.2",
+    "terser": "^5.7.1",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.3.5"
   },
   "displayName": "tsgraph",
   "files": [
@@ -50,10 +51,12 @@
   },
   "scripts": {
     "build": "npm run lint && tsc && ./post-build.sh",
-    "clean": "rm -fr bin/ build/ lib/ tsgraph.js",
+    "clean": "rimraf bin/ build/ lib/ tsgraph.js",
     "example": "ts-node src/example.ts",
     "generate": "ts-node src/bin/generate.ts",
     "lint": "eslint src/bin/*.ts src/lib/*.ts src/*.ts",
+    "postpublish": "npm run clean",
+    "prebuild": "npm run clean",
     "prepublishOnly": "npm run build",
     "solve": "ts-node src/bin/solve.ts",
     "start": "ts-node src/bin/generate.ts && ts-node src/bin/solve.ts"

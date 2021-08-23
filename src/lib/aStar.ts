@@ -104,7 +104,7 @@ class Workbench<T, L extends Link<T>, N extends Node<T>> {
   private readonly graph: Graph<T, L, N>
   private readonly heuristicCost: (from: N, to: N) => number
   private readonly nodesInQueue: Set<T> = new Set<T>()
-  private readonly queue: PriorityQueue<NodeCost<T>>
+  private readonly queue: PriorityQueue<NodeCost<T>, T>
   private readonly visited: Map<T, NodeCost<T>> = new Map<T, NodeCost<T>>()
 
   constructor(param: PathParameter<T, L, N>) {
@@ -112,7 +112,7 @@ class Workbench<T, L extends Link<T>, N extends Node<T>> {
     this.departureNodeId = param.departureNodeId
     this.graph = param.graph
     this.heuristicCost = param.heuristicCost
-    this.queue = new PriorityQueue<NodeCost<T>>(this.comparator)
+    this.queue = new PriorityQueue(this.comparator, (cost: NodeCost<T>) => cost.id)
     const departureNode = this.graph.nodeById(this.departureNodeId)
     const heuristicCost = this.heuristicCost(departureNode, this.arrivalNode)
     const node = new DepartureNodeCost<T>(this.departureNodeId, heuristicCost)
@@ -122,7 +122,7 @@ class Workbench<T, L extends Link<T>, N extends Node<T>> {
 
   private determinePriorityOf(node: NodeCost<T>): void {
     if (this.nodesInQueue.has(node.id))
-      this.queue.update(node)
+      this.queue.update(node.id)
     else {
       this.nodesInQueue.add(node.id)
       this.queue.add(node)

@@ -1,8 +1,14 @@
+branches:
+  except:
+    - /^v\d+\.\d+\.\d+$/
+cache:
+  directories:
+    - ~/.npm
 language: node_js
-cache: npm
 node_js:
-  - 14
-dist: focal
+  - 16
+notifications:
+  email: false
 script:
   - npm run example
   - npm run build

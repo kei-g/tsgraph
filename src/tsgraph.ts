@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { argv } from 'process'
 
 for (let i = 0; i < argv.length; i++)
