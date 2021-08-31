@@ -65,7 +65,7 @@
     "build:terse:tsgraph": "terser build/tsgraph.js -c -m -o tsgraph.js --toplevel",
     "build:terse:worker": "terser build/lib/worker.js -c -m -o lib/worker.js --toplevel",
     "build:tsc": "tsc",
-    "clean": "rimraf bin/ build/ lib/ tsgraph.js",
+    "clean": "rimraf bin/ build/ lib/ tsgraph.d.ts tsgraph.js",
     "example": "ts-node src/example.ts",
     "generate": "ts-node src/bin/generate.ts",
     "lint": "eslint src/bin/*.ts src/lib/*.ts src/*.ts",

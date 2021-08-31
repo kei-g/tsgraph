@@ -1,6 +1,8 @@
 {
 	"compilerOptions": {
     "charset": "utf8",
+    "declaration": true,
+    "declarationDir": ".",
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
