@@ -36,7 +36,7 @@
     "TypeScript"
   ],
   "license": "BSD-3-Clause",
-  "main": "./tsgraph.js",
+  "main": "index.js",
   "name": "@kei-g/tsgraph",
   "publishConfig": {
     "access": "public"
@@ -54,13 +54,14 @@
     "build:terse:euclidean": "terser build/lib/euclidean.js -c -m -o lib/euclidean.js --toplevel",
     "build:terse:generate": "terser build/bin/generate.js -c -m -o bin/generate.js --toplevel",
     "build:terse:graph": "terser build/lib/graph.js -c -m -o lib/graph.js --toplevel",
+    "build:terse:index": "terser build/index.js -c -m -o index.js --toplevel",
     "build:terse:neighborhoods": "terser build/lib/neighborhoods.js -c -m -o lib/neighborhoods.js --toplevel",
     "build:terse:solve": "terser build/bin/solve.js -c -m -o bin/solve.js --toplevel",
     "build:terse:standard": "terser build/lib/standard.js -c -m -o lib/standard.js --toplevel",
     "build:terse:tsgraph": "terser build/tsgraph.js -c -m -o tsgraph.js --toplevel",
     "build:terse:worker": "terser build/lib/worker.js -c -m -o lib/worker.js --toplevel",
     "build:tsc": "tsc",
-    "clean": "rimraf bin/ build/ lib/ tsgraph.d.ts tsgraph.js",
+    "clean": "rimraf bin/ build/ index.d.ts index.js lib/ tsgraph.d.ts tsgraph.js",
     "example": "ts-node src/example.ts",
     "generate": "ts-node src/bin/generate.ts",
     "lint": "eslint src/bin/*.ts src/lib/*.ts src/*.ts",
@@ -69,5 +70,6 @@
     "solve": "ts-node src/bin/solve.ts",
     "start": "run-s generate solve"
   },
+  "types": "index.d.ts",
   "version": "1.1.0"
 }
