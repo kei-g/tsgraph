@@ -28,11 +28,6 @@
     "typescript": "^4.4.2"
   },
   "displayName": "tsgraph",
-  "files": [
-    "bin",
-    "lib",
-    "tsgraph.js"
-  ],
   "homepage": "https://github.com/kei-g/tsgraph",
   "keywords": [
     "A*",
