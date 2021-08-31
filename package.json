@@ -4,9 +4,9 @@
     "name": "kei-g"
   },
   "bin": {
-    "tsgraph": "./tsgraph.js",
-    "tsgraph-generate": "./bin/generate.js",
-    "tsgraph-solve": "./bin/solve.js"
+    "tsgraph": "tsgraph.js",
+    "tsgraph-generate": "bin/generate.js",
+    "tsgraph-solve": "bin/solve.js"
   },
   "bugs": {
     "url": "https://github.com/kei-g/tsgraph/issues"
