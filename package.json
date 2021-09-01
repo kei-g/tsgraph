@@ -46,7 +46,8 @@
     "url": "https://github.com/kei-g/tsgraph.git"
   },
   "scripts": {
-    "build": "npm-run-all -p clean lint -s build:tsc -p build:terse:*",
+    "build": "npm-run-all -p clean lint -s build:tsc -p build:terse:* -s build:chmod",
+    "build:chmod": "ts-node utils/chmod.ts +x bin/generate.js bin/solve.js tsgraph.js",
     "build:terse:astar": "terser build/lib/aStar.js -c -m -o lib/aStar.js --toplevel",
     "build:terse:common": "terser build/lib/common.js -c -m -o lib/common.js --toplevel",
     "build:terse:coordinate": "terser build/lib/coordinate.js -c -m -o lib/coordinate.js --toplevel",
