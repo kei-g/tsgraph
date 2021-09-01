@@ -111,28 +111,28 @@ async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestP
     heuristicCost: MyNode.distance
   })
   switch (discovery.result) {
-  case 'Found':
-    let previousNode: MyNode
-    let travelled = 0
-    for (const node of discovery.path) {
-      travelled += previousNode?.printLinkTo(node) ?? 0
-      stdout.log(`${node}\n`)
-      previousNode = node
-    }
-    stdout.log('\n')
-    stdout.log(`累計距離: ${Math.round(travelled * 1000) / 1000}\n`)
-    stdout.log(`直線距離: ${Math.round(departure.distanceTo(arrival) * 1000) / 1000}\n`)
-    await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
-    return 0
-  case 'No Route':
-    console.log(discovery.result)
-    await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
-    process.exit(1)
+    case 'Found':
+      let previousNode: MyNode
+      let travelled = 0
+      for (const node of discovery.path) {
+        travelled += previousNode?.printLinkTo(node) ?? 0
+        stdout.log(`${node}\n`)
+        previousNode = node
+      }
+      stdout.log('\n')
+      stdout.log(`累計距離: ${Math.round(travelled * 1000) / 1000}\n`)
+      stdout.log(`直線距離: ${Math.round(departure.distanceTo(arrival) * 1000) / 1000}\n`)
+      await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
+      return 0
+    case 'No Route':
+      console.log(discovery.result)
+      await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
+      process.exit(1)
   }
 }
 
 let imageDestPath = ''
-for (let i = 0;; i++) {
+for (let i = 0; ; i++) {
   imageDestPath = `tsgraph${i}.png`
   if (!fs.existsSync(imageDestPath))
     break
@@ -143,20 +143,20 @@ let jsonPath = 'tsgraph.json'
 const argv = process.argv
 for (let i = 0; i < argv.length; i++)
   switch (argv[i]) {
-  case '-d':
-  case '--dest':
-  case '--destination':
-    imageDestPath = argv[++i]
-    break
-  case '-j':
-  case '--json':
-    jsonPath = argv[++i]
-    break
-  case '-s':
-  case '--src':
-  case '--source':
-    imageSourcePath = argv[++i]
-    break
+    case '-d':
+    case '--dest':
+    case '--destination':
+      imageDestPath = argv[++i]
+      break
+    case '-j':
+    case '--json':
+      jsonPath = argv[++i]
+      break
+    case '-s':
+    case '--src':
+    case '--source':
+      imageSourcePath = argv[++i]
+      break
   }
 
 const graph = new Graph({

@@ -206,31 +206,31 @@ let numThreads = 16
 const argv = process.argv
 for (let i = 0; i < argv.length; i++)
   switch (argv[i]) {
-  case '-i':
-  case '--image':
-  case '--image-path':
-    imagePath = argv[++i]
-    break
-  case '-j':
-  case '--json':
-  case '--json-path':
-    jsonPath = argv[++i]
-    break
-  case '-n':
-  case '--nodes':
-  case '--number-of-nodes':
-    numNodes = +argv[++i]
-    break
-  case '-s':
-  case '--image-size':
-  case '--size':
-    imageSize = +argv[++i]
-    break
-  case '-t':
-  case '--threads':
-  case '--number-of-threads':
-    numThreads = +argv[++i]
-    break
+    case '-i':
+    case '--image':
+    case '--image-path':
+      imagePath = argv[++i]
+      break
+    case '-j':
+    case '--json':
+    case '--json-path':
+      jsonPath = argv[++i]
+      break
+    case '-n':
+    case '--nodes':
+    case '--number-of-nodes':
+      numNodes = +argv[++i]
+      break
+    case '-s':
+    case '--image-size':
+    case '--size':
+      imageSize = +argv[++i]
+      break
+    case '-t':
+    case '--threads':
+    case '--number-of-threads':
+      numThreads = +argv[++i]
+      break
   }
 
 const graph = new MyGraphLike()

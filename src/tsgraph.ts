@@ -3,11 +3,11 @@ import { argv } from 'process'
 
 for (let i = 0; i < argv.length; i++)
   switch (argv[i]) {
-  case 'generate':
-    require('./bin/generate.js')
-    break
-  case 'help':
-    console.log(`tsgraph (operation) [options]
+    case 'generate':
+      require('./bin/generate.js')
+      break
+    case 'help':
+      console.log(`tsgraph (operation) [options]
 
 \u001b[1mSYNOPSIS\u001b[m
   tsgraph generate [options]
@@ -67,8 +67,8 @@ for (let i = 0; i < argv.length; i++)
 
     default: 'tsgraph.png'
 `)
-    break
-  case 'solve':
-    require('./bin/solve.js')
-    break
+      break
+    case 'solve':
+      require('./bin/solve.js')
+      break
   }

@@ -102,20 +102,20 @@ const discovery = aStar.findShortestPath({
   heuristicCost: MyNode.distance,
 })
 switch (discovery.result) {
-case 'Found':
-  let previousNode: MyNode
-  let travelled = 0
-  for (const node of discovery.path) {
-    travelled += previousNode?.printLinkTo(node) ?? 0
-    console.log(`${node}`)
-    previousNode = node
-  }
-  console.log()
-  console.log(`累計距離: ${travelled / 1000}(km)`)
-  console.log(`直線距離: ${departure.distanceTo(arrival) / 1000}(km)`)
-  process.exit(0)
-  break
-case 'No Route':
-  process.exit(1)
-  break
+  case 'Found':
+    let previousNode: MyNode
+    let travelled = 0
+    for (const node of discovery.path) {
+      travelled += previousNode?.printLinkTo(node) ?? 0
+      console.log(`${node}`)
+      previousNode = node
+    }
+    console.log()
+    console.log(`累計距離: ${travelled / 1000}(km)`)
+    console.log(`直線距離: ${departure.distanceTo(arrival) / 1000}(km)`)
+    process.exit(0)
+    break
+  case 'No Route':
+    process.exit(1)
+    break
 }
