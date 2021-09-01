@@ -29,7 +29,7 @@
     "src/lib/coordinateUnit.ts",
     "src/lib/euclidean.ts",
     "src/lib/graph.ts",
-    "src/lib/standard.ts",
+    "src/lib/random.ts",
     "src/lib/worker.ts",
     "src/tsgraph.ts",
   ],

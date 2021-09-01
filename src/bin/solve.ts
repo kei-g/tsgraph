@@ -6,7 +6,7 @@ import * as fs from 'fs'
 import * as aStar from '../lib/aStar'
 import * as Euclidean from '../lib/euclidean'
 import { Graph, Link, LinkParameter, Node } from '../lib/graph'
-import * as Standard from '../lib/standard'
+import { Random } from '../lib/random'
 
 class MyLink extends Link<number> {
   constructor(param: LinkParameter<number>) {
@@ -100,7 +100,7 @@ async function drawGraphAndPath(arrival: Euclidean.Point, destPath: string, sour
   fs.writeFileSync(destPath, buffer)
 }
 
-async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestPath: string, imageSourcePath: string, random: Standard.Random.Device): Promise<number> {
+async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestPath: string, imageSourcePath: string, random: Random.Device): Promise<number> {
   const arrival = graph.nodeById(random.integer % graph['nodes'].size)
   const departure = graph.nodeById(random.integer % graph['nodes'].size)
   process.stdout.write(`finding shortest path from ${departure} to ${arrival}\n`)
@@ -165,4 +165,4 @@ const graph = new Graph({
 })
 process.stdout.write(`loading ${jsonPath}...\n`)
 graph.JSON = fs.readFileSync(jsonPath).toString()
-findShortestPath(graph, imageDestPath, imageSourcePath, new Standard.Random.Device()).then((code: number) => process.exit(code))
+findShortestPath(graph, imageDestPath, imageSourcePath, new Random.Device()).then((code: number) => process.exit(code))

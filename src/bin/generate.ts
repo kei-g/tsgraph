@@ -8,7 +8,7 @@ import { Worker } from 'worker_threads'
 import { notnull, sequence } from '../lib/common'
 import * as Euclidean from '../lib/euclidean'
 import { NeighborhoodLike } from '../lib/neighborhoods'
-import * as Standard from '../lib/standard'
+import { Random } from '../lib/random'
 
 class LinkGenerator {
   private readonly generated: boolean[]
@@ -169,7 +169,7 @@ function drawGraph(filePath: string, graph: MyGraphLike, nodes: Euclidean.Point[
   fs.writeFileSync(filePath, buffer)
 }
 
-function generateNodes(graph: MyGraphLike, numberOfNodes: number, random: Standard.Random.Device): Euclidean.Point[] {
+function generateNodes(graph: MyGraphLike, numberOfNodes: number, random: Random.Device): Euclidean.Point[] {
   process.stdout.write('generating nodes...\n')
   const positions: Euclidean.Point[] = []
   for (let i = 0; i < numberOfNodes; i++) {
@@ -234,7 +234,7 @@ for (let i = 0; i < argv.length; i++)
   }
 
 const graph = new MyGraphLike()
-const random = new Standard.Random.Device()
+const random = new Random.Device()
 const nodes = generateNodes(graph, numNodes, random)
 const workers = spawnWorkerThreads(numThreads, nodes)
 const linkGenerator = new LinkGenerator(graph, numNodes, workers)
