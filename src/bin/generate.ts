@@ -25,7 +25,7 @@ class LinkGenerator {
   private async addLinks(message: Message): Promise<void> {
     for (let i = 0; i < message.link.to.length; i++) {
       const to = message.link.to[i]
-      stdout.log(`\r${this.numberOfLinks}: ${message.link.from} => ${to}                `)
+      process.stdout.write(`\r${this.numberOfLinks}: ${message.link.from} => ${to}                `)
       this.graph.links.push(new MyLink(this.numberOfLinks++, message.link.from, to))
       this.graph.links.push(new MyLink(this.numberOfLinks++, to, message.link.from))
     }
@@ -38,7 +38,7 @@ class LinkGenerator {
   generate(): Promise<void> {
     return new Promise<void>(resolve => {
       this.resolve = resolve
-      stdout.log('generating links...\n')
+      process.stdout.write('generating links...\n')
       const promises: Promise<void>[] = []
       for (let i = 0; i < this.numberOfNodes; i++)
         promises.push(this.enqueueMessage(i % this.workers.length, { generateLink: { from: i } }))
@@ -63,7 +63,7 @@ class LinkGenerator {
 
   private resolveWhenGenerated(): void {
     if (this.generated.every(notnull)) {
-      stdout.log(`\r${this.numberOfLinks} links have been generated\n`)
+      process.stdout.write(`\r${this.numberOfLinks} links have been generated\n`)
       this.resolve()
     }
   }
@@ -123,14 +123,14 @@ class MyNode {
 
 function drawLinks(context: CanvasRenderingContext2D, graph: MyGraphLike, size: number): void {
   const hist = new Set<number[]>()
-  stdout.log('drawing links...\n')
+  process.stdout.write('drawing links...\n')
   for (let i = 0; i < graph.links.length; i++) {
     const link = graph.links[i]
     const [from, to] = [link.from, link.to]
     const p = [Math.min(from, to), Math.max(from, to)]
     if (!hist.has(p)) {
       hist.add(p)
-      stdout.log(`\r${i}/${graph.links.length}`)
+      process.stdout.write(`\r${i}/${graph.links.length}`)
       const [f, t] = [graph.nodes[from].position, graph.nodes[to].position]
       context.beginPath()
       context.strokeStyle = 'rgba(96, 96, 96, 255)'
@@ -140,20 +140,20 @@ function drawLinks(context: CanvasRenderingContext2D, graph: MyGraphLike, size: 
       context.stroke()
     }
   }
-  stdout.log('\r')
+  process.stdout.write('\r')
 }
 
 function drawNodes(context: CanvasRenderingContext2D, nodes: Euclidean.Point[], size: number): void {
-  stdout.log('drawing nodes...\n')
+  process.stdout.write('drawing nodes...\n')
   for (let i = 0; i < nodes.length; i++) {
-    stdout.log(`\r${i}/${nodes.length}`)
+    process.stdout.write(`\r${i}/${nodes.length}`)
     const p = nodes[i]
     context.beginPath()
     context.fillStyle = 'rgba(255, 255, 255, 255)'
     context.arc((p.x / 4294967295) * size, (p.y / 4294967295) * size, 2, 0, Math.PI * 2)
     context.fill()
   }
-  stdout.log('\r')
+  process.stdout.write('\r')
 }
 
 function drawGraph(filePath: string, graph: MyGraphLike, nodes: Euclidean.Point[], size: number, type: 'png' | 'svg'): void {
@@ -163,29 +163,29 @@ function drawGraph(filePath: string, graph: MyGraphLike, nodes: Euclidean.Point[
   context.fillRect(0, 0, canvas.width, canvas.height)
   drawLinks(context, graph, size)
   drawNodes(context, nodes, size)
-  stdout.log(`compressing to ${type}...\n`)
+  process.stdout.write(`compressing to ${type}...\n`)
   const buffer = canvas.toBuffer()
-  stdout.log('done\n')
+  process.stdout.write('done\n')
   fs.writeFileSync(filePath, buffer)
 }
 
 function generateNodes(graph: MyGraphLike, numberOfNodes: number, random: Standard.Random.Device): Euclidean.Point[] {
-  stdout.log('generating nodes...\n')
+  process.stdout.write('generating nodes...\n')
   const positions: Euclidean.Point[] = []
   for (let i = 0; i < numberOfNodes; i++) {
     const position = Euclidean.Point.from(random)
     positions.push(position)
     graph.nodes.push(new MyNode(i, position))
-    stdout.log(`\r${i}/${numberOfNodes}`)
+    process.stdout.write(`\r${i}/${numberOfNodes}`)
   }
-  stdout.log(`\r${numberOfNodes} nodes have been generated\n`)
+  process.stdout.write(`\r${numberOfNodes} nodes have been generated\n`)
   return positions
 }
 
 function spawnWorkerThreads(numberOfThreads: number, positions: Euclidean.Point[]): Worker[] {
-  stdout.log('spawning worker threads...\n')
+  process.stdout.write('spawning worker threads...\n')
   const workers = sequence(numberOfThreads).map(index => {
-    stdout.log(`\r${index + 1}/${numberOfThreads}`)
+    process.stdout.write(`\r${index + 1}/${numberOfThreads}`)
     return new Worker(__dirname + '/../lib/worker.js', {
       workerData: {
         index: index + 1,
@@ -194,7 +194,7 @@ function spawnWorkerThreads(numberOfThreads: number, positions: Euclidean.Point[
       }
     })
   })
-  stdout.log(`\r${workers.length} threads have been spawned\n`)
+  process.stdout.write(`\r${workers.length} threads have been spawned\n`)
   return workers
 }
 
@@ -235,7 +235,6 @@ for (let i = 0; i < argv.length; i++)
 
 const graph = new MyGraphLike()
 const random = new Standard.Random.Device()
-const stdout = new Standard.Output()
 const nodes = generateNodes(graph, numNodes, random)
 const workers = spawnWorkerThreads(numThreads, nodes)
 const linkGenerator = new LinkGenerator(graph, numNodes, workers)
