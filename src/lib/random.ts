@@ -2,19 +2,6 @@
 
 import * as fs from 'fs'
 
-export class Output {
-  private readonly fd: number
-
-  constructor() {
-    this.fd = fs.openSync('/dev/stdout', 'w')
-    Object.freeze(this.fd)
-  }
-
-  log(message: string): void {
-    fs.writeSync(this.fd, Buffer.from(message))
-  }
-}
-
 export namespace Random {
   export class Device {
     private static readonly Base64Species = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'

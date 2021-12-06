@@ -1,7 +1,7 @@
 import { parentPort, workerData } from 'worker_threads'
 
 import { Neighborhood, NeighborhoodCache, NeighborhoodLike } from './neighborhoods'
-import { Random } from './standard'
+import { Random } from './random'
 
 type Message = {
   end?: {
