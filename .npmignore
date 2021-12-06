@@ -1,0 +1,13 @@
+**/*.json
+**/*.png
+**/.*
+**/.*/
+**/bin/generate.d.ts
+**/bin/solve.d.ts
+**/build/
+**/lib/common.d.ts
+**/lib/euclidean.d.ts
+**/lib/neighborhoods.d.ts
+**/lib/standard.d.ts
+**/lib/worker.d.ts
+**/src/

@@ -6,7 +6,7 @@ import * as fs from 'fs'
 import * as aStar from '../lib/aStar'
 import * as Euclidean from '../lib/euclidean'
 import { Graph, Link, LinkParameter, Node } from '../lib/graph'
-import * as Standard from '../lib/standard'
+import { Random } from '../lib/random'
 
 class MyLink extends Link<number> {
   constructor(param: LinkParameter<number>) {
@@ -34,7 +34,7 @@ class MyNode extends Node<number> {
 
   printLinkTo(node: MyNode): number {
     const distance = this.distanceTo(node)
-    stdout.log(`\t↓\t${Math.round(distance * 1000) / 1000}\n`)
+    process.stdout.write(`\t↓\t${Math.round(distance * 1000) / 1000}\n`)
     return distance
   }
 
@@ -49,10 +49,10 @@ type MyNodeParameter = {
 }
 
 function drawLinks(canvas: Canvas, context: CanvasRenderingContext2D, path: MyNode[]): void {
-  stdout.log('drawing links...\n')
+  process.stdout.write('drawing links...\n')
   for (let i = 1; i < path.length; i++) {
     const [from, to] = [path[i - 1], path[i]]
-    stdout.log(`\r${from.id} => ${to.id}                `)
+    process.stdout.write(`\r${from.id} => ${to.id}                `)
     const [f, t] = [from.position, to.position]
     context.beginPath()
     context.strokeStyle = 'rgba(0, 255, 0, 255)'
@@ -61,15 +61,15 @@ function drawLinks(canvas: Canvas, context: CanvasRenderingContext2D, path: MyNo
     context.lineTo((t.x / 4294967295) * canvas.width, (t.y / 4294967295) * canvas.height)
     context.stroke()
   }
-  stdout.log('\r')
+  process.stdout.write('\r')
 }
 
 function drawNodes(arrival: Euclidean.Point, canvas: Canvas, context: CanvasRenderingContext2D, path: MyNode[]): void {
   const colors = ['255, 255, 0', '255, 0, 0']
   const sizes = [2, 5]
-  stdout.log('drawing nodes...\n')
+  process.stdout.write('drawing nodes...\n')
   for (let i = 0; i < path.length; i++) {
-    stdout.log(`\r${i}/${path.length}`)
+    process.stdout.write(`\r${i}/${path.length}`)
     const p = path[i].position
     const isDepartureOrArrival = i == 0 || p.equal(arrival)
     context.beginPath()
@@ -83,27 +83,27 @@ function drawNodes(arrival: Euclidean.Point, canvas: Canvas, context: CanvasRend
     context.arc((arrival.x / 4294967295) * canvas.width, (arrival.y / 4294967295) * canvas.height, sizes[1], 0, Math.PI * 2)
     context.fill()
   }
-  stdout.log('\r')
+  process.stdout.write('\r')
 }
 
 async function drawGraphAndPath(arrival: Euclidean.Point, destPath: string, sourcePath: string, path: MyNode[], type: 'png' | 'svg'): Promise<void> {
-  stdout.log(`loadimg ${sourcePath}...\n`)
+  process.stdout.write(`loadimg ${sourcePath}...\n`)
   const image = await loadImage(sourcePath)
   const canvas = new Canvas(image.width, image.height, type == 'png' ? 'image' : type)
   const context = canvas.getContext('2d')
   context.drawImage(image, 0, 0, image.width, image.height)
   drawLinks(canvas, context, path)
   drawNodes(arrival, canvas, context, path)
-  stdout.log(`compressing image to ${type}...\n`)
+  process.stdout.write(`compressing image to ${type}...\n`)
   const buffer = canvas.toBuffer()
-  stdout.log('done\n')
+  process.stdout.write('done\n')
   fs.writeFileSync(destPath, buffer)
 }
 
-async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestPath: string, imageSourcePath: string, random: Standard.Random.Device): Promise<number> {
+async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestPath: string, imageSourcePath: string, random: Random.Device): Promise<number> {
   const arrival = graph.nodeById(random.integer % graph['nodes'].size)
   const departure = graph.nodeById(random.integer % graph['nodes'].size)
-  stdout.log(`finding shortest path from ${departure} to ${arrival}\n`)
+  process.stdout.write(`finding shortest path from ${departure} to ${arrival}\n`)
   const discovery = aStar.findShortestPath({
     arrivalNodeId: arrival.id,
     departureNodeId: departure.id,
@@ -111,28 +111,28 @@ async function findShortestPath(graph: Graph<number, MyLink, MyNode>, imageDestP
     heuristicCost: MyNode.distance
   })
   switch (discovery.result) {
-  case 'Found':
-    let previousNode: MyNode
-    let travelled = 0
-    for (const node of discovery.path) {
-      travelled += previousNode?.printLinkTo(node) ?? 0
-      stdout.log(`${node}\n`)
-      previousNode = node
-    }
-    stdout.log('\n')
-    stdout.log(`累計距離: ${Math.round(travelled * 1000) / 1000}\n`)
-    stdout.log(`直線距離: ${Math.round(departure.distanceTo(arrival) * 1000) / 1000}\n`)
-    await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
-    return 0
-  case 'No Route':
-    console.log(discovery.result)
-    await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
-    process.exit(1)
+    case 'Found':
+      let previousNode: MyNode
+      let travelled = 0
+      for (const node of discovery.path) {
+        travelled += previousNode?.printLinkTo(node) ?? 0
+        process.stdout.write(`${node}\n`)
+        previousNode = node
+      }
+      process.stdout.write('\n')
+      process.stdout.write(`累計距離: ${Math.round(travelled * 1000) / 1000}\n`)
+      process.stdout.write(`直線距離: ${Math.round(departure.distanceTo(arrival) * 1000) / 1000}\n`)
+      await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
+      return 0
+    case 'No Route':
+      console.log(discovery.result)
+      await drawGraphAndPath(arrival.position, imageDestPath, imageSourcePath, discovery.path, 'png')
+      process.exit(1)
   }
 }
 
 let imageDestPath = ''
-for (let i = 0;; i++) {
+for (let i = 0; ; i++) {
   imageDestPath = `tsgraph${i}.png`
   if (!fs.existsSync(imageDestPath))
     break
@@ -143,27 +143,26 @@ let jsonPath = 'tsgraph.json'
 const argv = process.argv
 for (let i = 0; i < argv.length; i++)
   switch (argv[i]) {
-  case '-d':
-  case '--dest':
-  case '--destination':
-    imageDestPath = argv[++i]
-    break
-  case '-j':
-  case '--json':
-    jsonPath = argv[++i]
-    break
-  case '-s':
-  case '--src':
-  case '--source':
-    imageSourcePath = argv[++i]
-    break
+    case '-d':
+    case '--dest':
+    case '--destination':
+      imageDestPath = argv[++i]
+      break
+    case '-j':
+    case '--json':
+      jsonPath = argv[++i]
+      break
+    case '-s':
+    case '--src':
+    case '--source':
+      imageSourcePath = argv[++i]
+      break
   }
 
 const graph = new Graph({
   linkConstructor: MyLink,
   nodeConstructor: MyNode,
 })
-const stdout = new Standard.Output()
-stdout.log(`loading ${jsonPath}...\n`)
+process.stdout.write(`loading ${jsonPath}...\n`)
 graph.JSON = fs.readFileSync(jsonPath).toString()
-findShortestPath(graph, imageDestPath, imageSourcePath, new Standard.Random.Device()).then((code: number) => process.exit(code))
+findShortestPath(graph, imageDestPath, imageSourcePath, new Random.Device()).then((code: number) => process.exit(code))

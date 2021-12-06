@@ -1,5 +1,5 @@
 import { Comparator } from '@kei-g/priority-queue'
-import { Random } from './standard'
+import { Random } from './random'
 
 export type AnticlockwiseIndex = 0 | 1 | 2 | 3
 
