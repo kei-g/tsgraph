@@ -12,8 +12,8 @@ npx @kei-g/tsgraph help
 
 [depencency-image]:https://img.shields.io/librariesio/release/npm/@kei-g/tsgraph?logo=nodedotjs
 [dependency-url]:https://npmjs.com/package/@kei-g/tsgraph?activeTab=dependencies
-[github-build-image]:https://img.shields.io/github/workflow/status/kei-g/tsgraph/build/main?label=build&logo=github
-[github-example-image]:https://img.shields.io/github/workflow/status/kei-g/tsgraph/test/main?label=test&logo=github
+[github-build-image]:https://github.com/kei-g/tsgraph/actions/workflows/build.yml/badge.svg
+[github-example-image]:https://github.com/kei-g/tsgraph/actions/workflows/example.yml/badge.svg
 [github-url]:https://github.com/kei-g/tsgraph
 [license-image]:https://img.shields.io/github/license/kei-g/tsgraph
 [license-url]:https://opensource.org/licenses/BSD-3-Clause
