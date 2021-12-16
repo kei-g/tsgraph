@@ -1,10 +1,10 @@
 jobs:
   build:
+    name: Test on Node.js ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node: [ '16.13.1', '17.1.0' ]
-    name: Test on Node.js ${{ matrix.node }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
