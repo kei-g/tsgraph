@@ -23,6 +23,15 @@ jobs:
         run: npm run example
 name: Example
 on:
+  pull_request:
+    paths-ignore:
+      - '**.md'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.github/dependabot.yml'
+      - '.gitignore'
+      - '.travis.yml'
+      - 'LICENSE'
   push:
     branches:
       - devel
