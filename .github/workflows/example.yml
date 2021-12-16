@@ -25,4 +25,6 @@ name: Example
 on:
   push:
     branches:
+      - devel
       - main
+      - release
