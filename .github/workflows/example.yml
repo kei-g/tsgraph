@@ -1,6 +1,6 @@
 jobs:
-  build:
-    name: Build on Node.js ${{ matrix.node }}
+  example:
+    name: Run example on Node.js ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,9 +19,9 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Setup modules
         run: npm i
-      - name: Build
-        run: npm run build
-name: Build
+      - name: Run example
+        run: npm run example
+name: Example
 on:
   pull_request:
     paths-ignore:
