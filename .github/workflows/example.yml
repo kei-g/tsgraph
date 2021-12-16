@@ -1,6 +1,6 @@
 jobs:
   example:
-    name: Test on Node.js ${{ matrix.node }}
+    name: Run example on Node.js ${{ matrix.node }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,7 +19,7 @@ jobs:
         run: npm i
       - name: Run example
         run: npm run example
-name: test
+name: Example
 on:
   push:
     branches: [ main ]
