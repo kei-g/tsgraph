@@ -1,6 +1,6 @@
 # tsgraph [![License][license-image]][license-url] [![npm][npm-image]][npm-url]
 
-[![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url] [![github (build)][github-build-image]][github-url] [![github (test)][github-test-image]][github-url] [![travis][travis-image]][travis-url]
+[![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url] [![GitHub CI (Build)][github-build-image]][github-url] [![GitHub CI (Example)][github-example-image]][github-url] [![travis][travis-image]][travis-url]
 
 `tsgraph` - `A*` search algorithm implementation in TypeScript
 
@@ -13,7 +13,7 @@ npx @kei-g/tsgraph help
 [depencency-image]:https://img.shields.io/librariesio/release/npm/@kei-g/tsgraph?logo=nodedotjs
 [dependency-url]:https://npmjs.com/package/@kei-g/tsgraph?activeTab=dependencies
 [github-build-image]:https://img.shields.io/github/workflow/status/kei-g/tsgraph/build/main?label=build&logo=github
-[github-test-image]:https://img.shields.io/github/workflow/status/kei-g/tsgraph/test/main?label=test&logo=github
+[github-example-image]:https://img.shields.io/github/workflow/status/kei-g/tsgraph/test/main?label=test&logo=github
 [github-url]:https://github.com/kei-g/tsgraph
 [license-image]:https://img.shields.io/github/license/kei-g/tsgraph
 [license-url]:https://opensource.org/licenses/BSD-3-Clause
