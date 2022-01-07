@@ -20,7 +20,7 @@ jobs:
       - name: Upgrade npm
         run: npm install npm@latest -g
       - name: Setup modules
-        run: npm i
+        run: npm ci
       - name: Build
         run: npm run build
 name: Build
