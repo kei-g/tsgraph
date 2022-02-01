@@ -1,6 +1,6 @@
 # tsgraph [![License][license-image]][license-url] [![npm][npm-image]][npm-url]
 
-[![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url] [![GitHub CI (Build)][github-build-image]][github-build-url] [![GitHub CI (Example)][github-example-image]][github-example-url] [![travis][travis-image]][travis-url]
+[![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url] [![GitHub CI (Build)][github-build-image]][github-build-url] [![GitHub CI (Example)][github-example-image]][github-example-url]
 
 `tsgraph` - `A*` search algorithm implementation in TypeScript
 
@@ -24,5 +24,3 @@ npx @kei-g/tsgraph help
 [npm-url]:https://npmjs.com/@kei-g/tsgraph
 [npmsio-url]:https://npms.io/search?q=%40kei-g%2Ftsgraph
 [quality-image]:https://img.shields.io/npms-io/quality-score/@kei-g/tsgraph?logo=npm
-[travis-image]:https://img.shields.io/travis/com/kei-g/tsgraph/main.svg?logo=travis
-[travis-url]:https://app.travis-ci.com/kei-g/tsgraph

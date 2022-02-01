@@ -32,7 +32,6 @@ on:
       - '.gitattributes'
       - '.github/dependabot.yml'
       - '.gitignore'
-      - '.travis.yml'
       - 'LICENSE'
   push:
     branches:
@@ -45,5 +44,4 @@ on:
       - '.gitattributes'
       - '.github/dependabot.yml'
       - '.gitignore'
-      - '.travis.yml'
       - 'LICENSE'
