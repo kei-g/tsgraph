@@ -18,7 +18,7 @@
   "description": "A star search algorithm implementation in TypeScript",
   "devDependencies": {
     "@kei-g/chmod": "^1.0.7",
-    "@types/node": "^17.0.13",
+    "@types/node": "^18.11.7",
     "@typescript-eslint/eslint-plugin": "^5.10.2",
     "@typescript-eslint/parser": "^5.10.2",
     "eslint": "^8.8.0",
