@@ -161,8 +161,8 @@ function drawGraph(filePath: string, graph: MyGraphLike, nodes: Euclidean.Point[
   const context = canvas.getContext('2d')
   context.fillStyle = 'rgba(0, 0, 0, 255)'
   context.fillRect(0, 0, canvas.width, canvas.height)
-  drawLinks(context, graph, size)
-  drawNodes(context, nodes, size)
+  drawLinks(context as unknown as CanvasRenderingContext2D, graph, size)
+  drawNodes(context as unknown as CanvasRenderingContext2D, nodes, size)
   process.stdout.write(`compressing to ${type}...\n`)
   const buffer = canvas.toBuffer()
   process.stdout.write('done\n')
