@@ -1,24 +1,24 @@
 {
-	"compilerOptions": {
+  "compilerOptions": {
     "charset": "utf8",
     "declaration": true,
     "declarationDir": ".",
     "downlevelIteration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-		"lib": [
+    "lib": [
       "DOM",
       "ESNext",
     ],
     "module": "CommonJS",
-		"moduleResolution": "node",
+    "moduleResolution": "node",
     "newLine": "lf",
     "outDir": "build",
     "pretty": true,
     "removeComments": true,
     "skipLibCheck": true,
-		"target": "ES6",
-	},
+    "target": "ES6",
+  },
   "files": [
     "src/bin/generate.ts",
     "src/bin/solve.ts",
