@@ -29,7 +29,7 @@ npx @kei-g/tsgraph help
 [github-image]:https://img.shields.io/badge/github-tsgraph-blue?logo=github
 [github-url]:https://github.com/kei-g/tsgraph
 [license-image]:https://img.shields.io/github/license/kei-g/tsgraph
-[license-url]:https://opensource.org/licenses/BSD-3-Clause
+[license-url]:https://github.com/kei-g/tsgraph/blob/main/LICENSE
 [maintenance-image]:https://img.shields.io/npms-io/maintenance-score/@kei-g/tsgraph?logo=npm
 [npm-image]:https://img.shields.io/npm/v/@kei-g/tsgraph?logo=npm
 [npm-url]:https://npmjs.com/@kei-g/tsgraph
