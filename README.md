@@ -1,8 +1,8 @@
 # tsgraph [![License][license-image]][license-url] [![npm][npm-image]][npm-url]
 
-[![repo][github-image]][github-url] [![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url]
+[![dependency][depencency-image]][dependency-url] [![maintenance][maintenance-image]][npmsio-url] [![quality][quality-image]][npmsio-url]
 
-`tsgraph` - `A*` search algorithm implementation in TypeScript
+[`tsgraph`][github-url] - `A*` search algorithm implementation in TypeScript
 
 ## How to use
 
@@ -26,7 +26,6 @@ npx @kei-g/tsgraph help
 [github-codeql-url]:https://github.com/kei-g/tsgraph/actions/workflows/codeql.yml
 [github-example-image]:https://github.com/kei-g/tsgraph/actions/workflows/example.yml/badge.svg
 [github-example-url]:https://github.com/kei-g/tsgraph/actions/workflows/example.yml
-[github-image]:https://img.shields.io/badge/github-tsgraph-blue?logo=github
 [github-url]:https://github.com/kei-g/tsgraph
 [license-image]:https://img.shields.io/github/license/kei-g/tsgraph
 [license-url]:https://github.com/kei-g/tsgraph/blob/main/LICENSE
