@@ -25,11 +25,6 @@ jobs:
         run: npm run example
 name: Example
 on:
-  pull_request:
-    branches:
-      - '**'
   push:
     branches:
-      - '**'
-    tags-ignore:
-      - '**'
+      - main
