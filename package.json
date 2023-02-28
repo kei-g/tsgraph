@@ -18,7 +18,7 @@
   "description": "A star search algorithm implementation in TypeScript",
   "devDependencies": {
     "@types/node": "^18.14.2",
-    "@typescript-eslint/eslint-plugin": "^5.53.0",
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.53.0",
     "esbuild": "^0.17.10",
     "eslint": "^8.35.0",
