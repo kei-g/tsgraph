@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-case-declarations */
 import { Canvas, loadImage } from 'canvas'
 import * as fs from 'fs'
 

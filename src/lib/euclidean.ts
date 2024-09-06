@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { Comparator } from '@kei-g/priority-queue'
 import { Random } from './random'
 

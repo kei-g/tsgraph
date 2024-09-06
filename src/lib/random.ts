@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-namespace */
+/* eslint-disable no-unused-vars */
 
 import * as fs from 'fs'
 

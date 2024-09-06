@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-case-declarations */
 
 import * as aStar from './lib/aStar'
 import { Coordinate, distanceWGS84 } from './lib/coordinate'

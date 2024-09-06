@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import * as Euclidean from './euclidean'
 
 export class Neighborhood implements NeighborhoodLike {

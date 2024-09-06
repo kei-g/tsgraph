@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 export type Predicate<T> = (object: T) => boolean
 export type Selector<T, U> = SelectorWithIndex<T, U> | SelectorWithoutIndex<T, U>
 export type SelectorWithIndex<T, U> = (element: T, index: number) => U
