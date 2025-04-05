@@ -1,2 +1,2 @@
-require('ts-node').register()
+require('esbuild-register')
 require(__dirname + '/worker.ts')
