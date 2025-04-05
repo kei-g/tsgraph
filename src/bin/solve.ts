@@ -86,7 +86,7 @@ function drawNodes(arrival: Euclidean.Point, canvas: Canvas, context: CanvasRend
 }
 
 async function drawGraphAndPath(arrival: Euclidean.Point, destPath: string, sourcePath: string, path: MyNode[], type: 'png' | 'svg'): Promise<void> {
-  process.stdout.write(`loadimg ${sourcePath}...\n`)
+  process.stdout.write(`load image ${sourcePath}...\n`)
   const image = await loadImage(sourcePath)
   const canvas = new Canvas(image.width, image.height, type == 'png' ? 'image' : type)
   const context = canvas.getContext('2d')

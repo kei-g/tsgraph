@@ -73,15 +73,15 @@ export class NeighborhoodCache extends Map<number, NeighborhoodArray> {
       else
         a.add(i, this.limit, squareOfDistance(this.points[i]))
     this.set(neighbor.index, a)
-    const mywork: Neighborhood[] = []
-    const notmywork: Neighborhood[] = []
+    const myWork: Neighborhood[] = []
+    const notMyWork: Neighborhood[] = []
     for (const b of a)
       if ((b.index % this.numberOfThreads) != this.workerThreadIndex)
-        notmywork.push(b)
+        notMyWork.push(b)
       else if (this.index < b.index)
-        mywork.push(b)
-    this.notifier?.(notmywork)
-    for (const b of mywork)
+        myWork.push(b)
+    this.notifier?.(notMyWork)
+    for (const b of myWork)
       this.add(depth + 1, b)
   }
 
