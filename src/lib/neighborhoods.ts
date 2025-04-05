@@ -20,8 +20,9 @@ export class Neighborhood implements NeighborhoodLike {
 
 export class NeighborhoodArray extends Array<Neighborhood> {
   add(index: number, limit: number, squareOfDistance: number): void {
-    this.insert(index, limit, squareOfDistance) ??
-      this.length < limit ? this.push(new Neighborhood({ index, squareOfDistance })) : {}
+    if (this.insert(index, limit, squareOfDistance) === undefined)
+      if (this.length < limit)
+        this.push(new Neighborhood({ index, squareOfDistance }))
   }
 
   private insert(index: number, limit: number, squareOfDistance: number): number | undefined {

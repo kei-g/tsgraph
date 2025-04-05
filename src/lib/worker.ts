@@ -50,7 +50,7 @@ function receiveMessage(message: Message): void {
 }
 
 function receiveNeighborhoods(neighborhoods: NeighborhoodLike[]): Promise<void> {
-  return new Promise<void>(resolve => { cache.receive(neighborhoods), resolve() })
+  return new Promise<void>(resolve => (cache.receive(neighborhoods), resolve()))
 }
 
 cache.notifier = (neighborhoods: Neighborhood[]) => enqueueMessage({ neighborhoods: neighborhoods })

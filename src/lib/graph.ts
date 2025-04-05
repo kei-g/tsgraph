@@ -1,7 +1,7 @@
 import { DuplicateException } from './common'
 
 export abstract class Node<T> implements NodeParameter<T> {
-  readonly graph: Graph<T, any, this>
+  readonly graph: Graph<T, Link<T>, Node<T>>
   readonly id: T
 
   constructor(param: NodeParameter<T>) {
@@ -59,8 +59,9 @@ export class Graph<T, L extends Link<T>, N extends Node<T>> extends Node<T> {
   }
 
   private groupByFromNodeId(link: L): void {
-    this.linkIdsGroupedByFromNodeId.has(link.from) ?
-      this.linkIdsGroupedByFromNodeId.get(link.from).push(link.id) :
+    if (this.linkIdsGroupedByFromNodeId.has(link.from))
+      this.linkIdsGroupedByFromNodeId.get(link.from).push(link.id)
+    else
       this.linkIdsGroupedByFromNodeId.set(link.from, [link.id])
   }
 
@@ -139,7 +140,7 @@ export type LinkParameter<T> = {
 }
 
 export type NodeParameter<T> = {
-  graph?: Graph<T, any, any>
+  graph?: Graph<T, Link<T>, Node<T>>
   id: T
 }
 
