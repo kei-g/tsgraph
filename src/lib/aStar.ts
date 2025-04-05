@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { Comparator, PriorityQueue } from '@kei-g/priority-queue'
 import { Graph, Link, Node } from './graph'
 
@@ -33,10 +31,18 @@ interface NodeCost<T> {
 }
 
 class ConcreteNodeCost<T> implements NodeCost<T> {
+  behindNodeId: T
+  cumulative: number
   estimated: number
+  readonly heuristic: number
+  readonly id: T
 
-  constructor(readonly id: T, public cumulative: number, readonly heuristic: number, public behindNodeId: T) {
+  constructor(id: T, cumulative: number, heuristic: number, behindNodeId: T) {
+    this.behindNodeId = behindNodeId
+    this.cumulative = cumulative
     this.estimated = cumulative + heuristic
+    this.heuristic = heuristic
+    this.id = id
   }
 
   update(behindNodeId: T, cumulative: number, callback: Callback): void {
@@ -55,7 +61,12 @@ class ConcreteNodeCost<T> implements NodeCost<T> {
 }
 
 class DepartureNodeCost<T> implements NodeCost<T> {
-  constructor(readonly id: T, readonly heuristic: number) {
+  readonly heuristic: number
+  readonly id: T
+
+  constructor(id: T, heuristic: number) {
+    this.heuristic = heuristic
+    this.id = id
   }
 
   get behindNodeId(): T {
@@ -70,7 +81,7 @@ class DepartureNodeCost<T> implements NodeCost<T> {
     return this.heuristic
   }
 
-  update(behindNodeId: T, cumulative: number, callback: Callback): void {
+  update(_behindNodeId: T, _cumulative: number, _callback: Callback): void {
   }
 
   toString(): string {

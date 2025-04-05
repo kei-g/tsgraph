@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { Comparator } from '@kei-g/priority-queue'
 import { Random } from './random'
 
@@ -94,7 +92,12 @@ export class Point implements PointLike {
     }
   }
 
-  constructor(readonly x: number, readonly y: number) {
+  readonly x: number
+  readonly y: number
+
+  constructor(x: number, y: number) {
+    this.x = x
+    this.y = y
   }
 
   get JSON(): string {

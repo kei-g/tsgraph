@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable no-unused-vars */
-
 import { Canvas } from 'canvas'
 import * as fs from 'fs'
 import { Worker } from 'worker_threads'
@@ -12,11 +10,17 @@ import { Random } from '../lib/random'
 
 class LinkGenerator {
   private readonly generated: boolean[]
+  private graph: MyGraphLike
   private numberOfLinks = 0
+  private readonly numberOfNodes: number
   private resolve: (value: void | PromiseLike<void>) => void
+  private readonly workers: Worker[]
 
-  constructor(private graph: MyGraphLike, private readonly numberOfNodes: number, private readonly workers: Worker[]) {
-    this.generated = this.workers.map(_ => false)
+  constructor(graph: MyGraphLike, numberOfNodes: number, workers: Worker[]) {
+    this.generated = workers.map(_ => false)
+    this.graph = graph
+    this.numberOfNodes = numberOfNodes
+    this.workers = workers
     for (const worker of workers)
       worker.on('message', (message: Message) => this.onReceiveMessage(message))
     setInterval(() => this.resolveWhenGenerated(), 1000)
@@ -104,7 +108,15 @@ class MyGraphLike {
 }
 
 class MyLink {
-  constructor(readonly id: number, readonly from: number, readonly to: number) {
+  readonly from: number
+  readonly id: number
+  readonly to: number
+
+
+  constructor(id: number, from: number, to: number) {
+    this.from = from
+    this.id = id
+    this.to = to
   }
 
   get JSON(): string {
@@ -113,7 +125,12 @@ class MyLink {
 }
 
 class MyNode {
-  constructor(readonly id: number, readonly position: Euclidean.Point) {
+  readonly id: number
+  readonly position: Euclidean.Point
+
+  constructor(id: number, position: Euclidean.Point) {
+    this.id = id
+    this.position = position
   }
 
   get JSON(): string {

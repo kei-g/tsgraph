@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import * as fs from 'fs'
 
 export namespace Random {
@@ -7,13 +5,15 @@ export namespace Random {
     private static readonly Base64Species = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
     private readonly fd: number
     private readonly species: string
+    private readonly stringLength: number
 
-    constructor(private readonly stringLength: number = 16) {
+    constructor(stringLength: number = 16) {
       this.fd = fs.openSync('/dev/urandom', 'r')
       this.species = Device.Base64Species
       Object.freeze(Device.Base64Species)
       Object.freeze(this.fd)
       Object.freeze(this.species)
+      this.stringLength = stringLength
     }
 
     get integer(): number {

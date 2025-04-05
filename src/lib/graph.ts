@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import { DuplicateException } from './common'
 
 export abstract class Node<T> implements NodeParameter<T> {

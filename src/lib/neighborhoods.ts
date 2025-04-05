@@ -1,5 +1,3 @@
-/* eslint-disable no-unused-vars */
-
 import * as Euclidean from './euclidean'
 
 export class Neighborhood implements NeighborhoodLike {
@@ -42,11 +40,19 @@ export class NeighborhoodArray extends Array<Neighborhood> {
 export class NeighborhoodCache extends Map<number, NeighborhoodArray> {
   private hit = 0
   private index: number
+  private readonly limit: number
   notifier: (neighborhoods: Neighborhood[]) => Promise<void>
+  private readonly numberOfThreads: number
+  private readonly points: Euclidean.PointLike[]
   private total = 0
+  private readonly workerThreadIndex: number
 
-  constructor(private readonly limit: number, private readonly numberOfThreads: number, private readonly points: Euclidean.PointLike[], private readonly workerThreadIndex: number) {
+  constructor(limit: number, numberOfThreads: number, points: Euclidean.PointLike[], workerThreadIndex: number) {
     super()
+    this.limit = limit
+    this.numberOfThreads = numberOfThreads
+    this.points = points
+    this.workerThreadIndex = workerThreadIndex
   }
 
   private async add(depth: number, neighbor: Neighborhood | NeighborhoodLike): Promise<void> {

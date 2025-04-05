@@ -53,7 +53,7 @@
     "clean": "rimraf bin/ build/ example.d.ts index.d.ts index.js lib/ tsgraph.d.ts tsgraph.js",
     "example": "node --require esbuild-register src/example.ts",
     "generate": "node --require esbuild-register src/bin/generate.ts",
-    "lint": "eslint src/bin/*.ts src/lib/*.ts src/*.ts",
+    "lint": "eslint src/**/*.ts",
     "postpublish": "run-s clean",
     "prepublishOnly": "run-s build",
     "solve": "node --require esbuild-register src/bin/solve.ts",
