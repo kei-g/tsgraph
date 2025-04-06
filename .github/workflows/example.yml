@@ -19,6 +19,10 @@ jobs:
           node-version: ${{ matrix.node }}
       - name: Upgrade npm
         run: npm install npm@latest -g
+      - env:
+          DEBIAN_FRONTEND: noninteractive
+        name: Install dependent packages
+        run: sudo apt install libpixman-1-dev
       - name: Setup modules
         run: npm ci
       - name: Run example
