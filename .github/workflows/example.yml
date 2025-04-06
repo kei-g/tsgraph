@@ -25,6 +25,7 @@ jobs:
         run: |
           sudo apt install \
             libcairo2-dev \
+            libpango1.0-dev \
             libpixman-1-dev
       - name: Setup modules
         run: npm ci
