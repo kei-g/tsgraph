@@ -22,7 +22,10 @@ jobs:
       - env:
           DEBIAN_FRONTEND: noninteractive
         name: Install dependent packages
-        run: sudo apt install libpixman-1-dev
+        run: |
+          sudo apt install \
+            libcairo2-dev \
+            libpixman-1-dev
       - name: Setup modules
         run: npm ci
       - name: Build
