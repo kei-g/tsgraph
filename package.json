@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@kei-g/priority-queue": "^1.1.9",
-    "canvas": "^3.1.0"
+    "canvas": "^3.1.1"
   },
   "description": "A star search algorithm implementation in TypeScript",
   "devDependencies": {
