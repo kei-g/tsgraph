@@ -1,10 +1,10 @@
 #!/usr/bin/env node
-import { argv } from 'process'
+import { argv } from 'node:process'
 
 for (let i = 0; i < argv.length; i++)
   switch (argv[i]) {
     case 'generate':
-      require('./bin/generate.js')
+      require('./bin/generate.ts')
       break
     case 'help':
       console.log(`tsgraph (operation) [options]
@@ -69,6 +69,6 @@ for (let i = 0; i < argv.length; i++)
 `)
       break
     case 'solve':
-      require('./bin/solve.js')
+      require('./bin/solve.ts')
       break
   }
