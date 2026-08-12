@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "declaration": true,
     "declarationDir": ".",
-    "downlevelIteration": true,
     "emitDeclarationOnly": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -10,13 +10,18 @@
       "DOM",
       "ESNext",
     ],
-    "module": "CommonJS",
-    "moduleResolution": "node",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "newLine": "lf",
     "pretty": true,
     "removeComments": false,
+    "rootDir": "src",
     "skipLibCheck": true,
+    "strict": false,
     "target": "ES2015",
+    "types": [
+      "node",
+    ],
   },
   "exclude": [],
   "include": [
